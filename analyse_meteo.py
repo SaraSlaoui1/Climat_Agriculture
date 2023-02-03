@@ -13,7 +13,7 @@ import geopandas as gpd
 def analyse_meteo_function():
     st.header('Analyse des variables météorologiques de 2018 à 2021')
     
-    meteo_2018_2021 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\projet Datascientest météo\meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
+    meteo_2018_2021 = pd.read_csv("Resources/meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
     
     
     # In[9]:
@@ -158,7 +158,7 @@ def analyse_meteo_function():
     
     meteo_2018_2021.describe()
 
-    shapefile = gpd.read_file(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\projet Datascientest météo\jsonvalidator.json")
+    shapefile = gpd.read_file("Resources/jsonvalidator.json")
     
     merged1 = shapefile.merge(meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2018].groupby('nom').mean(), on = 'nom')
     merged2 = shapefile.merge(meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2019].groupby('nom').mean(), on = 'nom')

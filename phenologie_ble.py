@@ -70,7 +70,7 @@ def phenologie_ble_function():
     # In[23]:
     
     
-    pheno_ble = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
+    pheno_ble = pd.read_csv("Resources/phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
     
     
     
@@ -180,7 +180,7 @@ def phenologie_ble_function():
     # In[441]:
     
     from skimage import io
-    img = io.imread(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\vivescia_cycle-ble_0.jpg")
+    img = io.imread('Resources/vivescia_cycle-ble_0.jpg')
     
     
     # In[442]:
@@ -329,7 +329,7 @@ def phenologie_ble_function():
     # In[3]:
     st.header('Analyse des productions, surfaces et rendements agricoles de 2018 à 2021')
     
-    prod_vege_2019 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2019_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2019 = pd.read_csv("Resources/2019_donneesgrandescultures.csv", sep=';', header = [0,1])
     
     prod_vege_2019.iloc[:,1:] = prod_vege_2019.iloc[:,1:].astype(float)
     prod_vege_2019.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
@@ -347,7 +347,7 @@ def phenologie_ble_function():
     # In[4]:
     
     
-    prod_vege_2020 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2020_donneesgrandescultures.csv", sep=';', header=[0,1])
+    prod_vege_2020 = pd.read_csv("Resources/2020_donneesgrandescultures.csv", sep=';', header=[0,1])
     
     prod_vege_2020.head()
     
@@ -369,7 +369,7 @@ def phenologie_ble_function():
     # In[5]:
     
     
-    prod_vege_2021 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
+    prod_vege_2021 = pd.read_csv("Resources/2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
     
     prod_vege_2021.iloc[:,1:] = prod_vege_2021.iloc[:,1:].astype(float)
     prod_vege_2021.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)

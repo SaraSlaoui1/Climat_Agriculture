@@ -23,7 +23,7 @@ from nltk.tokenize.treebank import TreebankWordDetokenizer
 def machine_learning_function():    
     #st.title("Impact du changement climatique sur l'agriculture française")
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    prod_vege_2018 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2018_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].astype(float)
     prod_vege_2018.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].round(2)
@@ -37,7 +37,7 @@ def machine_learning_function():
     
     
  
-    prod_vege_2019 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2019_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2019 = pd.read_csv("Resources/2019_donneesgrandescultures.csv", sep=';', header = [0,1])
     
     prod_vege_2019.iloc[:,1:] = prod_vege_2019.iloc[:,1:].astype(float)
     prod_vege_2019.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
@@ -55,7 +55,7 @@ def machine_learning_function():
     # In[4]:
     
     
-    prod_vege_2020 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2020_donneesgrandescultures.csv", sep=';', header=[0,1])
+    prod_vege_2020 = pd.read_csv("Resources/2020_donneesgrandescultures.csv", sep=';', header=[0,1])
     
     prod_vege_2020.head()
     
@@ -77,7 +77,7 @@ def machine_learning_function():
     # In[5]:
     
     
-    prod_vege_2021 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
+    prod_vege_2021 = pd.read_csv("Resources/2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
     
     prod_vege_2021.iloc[:,1:] = prod_vege_2021.iloc[:,1:].astype(float)
     prod_vege_2021.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
@@ -209,7 +209,7 @@ def machine_learning_function():
     # In[23]:
     
     
-    pheno_ble = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
+    pheno_ble = pd.read_csv("Resources/phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
     
     
     
@@ -361,7 +361,7 @@ def machine_learning_function():
     # In[8]:
     #st.header('Analyse des variables météorologiques de 2018 à 2021')
     
-    meteo_2018_2021 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\projet Datascientest météo\meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
+    meteo_2018_2021 = pd.read_csv("Resources/meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
     st.dataframe(meteo_2018_2021)
     
     

@@ -16,7 +16,7 @@ import streamlit as st
 st.set_page_config(page_title = 'Projet DS meteo agriculture', )
 st.set_option('deprecation.showPyplotGlobalUse', False)
 def analyse_agriculture_function():
-    prod_vege_2018 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2018_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].astype(float)
     prod_vege_2018.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].round(2)
@@ -38,7 +38,7 @@ def analyse_agriculture_function():
     # In[3]:
     st.header('Analyse des productions, surfaces et rendements agricoles de 2018 à 2021')
     
-    prod_vege_2019 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2019_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2019 = pd.read_csv("Resources/2019_donneesgrandescultures.csv", sep=';', header = [0,1])
     
     prod_vege_2019.iloc[:,1:] = prod_vege_2019.iloc[:,1:].astype(float)
     prod_vege_2019.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
@@ -56,7 +56,7 @@ def analyse_agriculture_function():
     # In[4]:
     
     
-    prod_vege_2020 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2020_donneesgrandescultures.csv", sep=';', header=[0,1])
+    prod_vege_2020 = pd.read_csv("Resources/2020_donneesgrandescultures.csv", sep=';', header=[0,1])
     
     prod_vege_2020.head()
     
@@ -78,7 +78,7 @@ def analyse_agriculture_function():
     # In[5]:
     
     
-    prod_vege_2021 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
+    prod_vege_2021 = pd.read_csv("Resources/2021_donneesgrandescultures (1).csv", sep=';', header=[0,1])
     
     prod_vege_2021.iloc[:,1:] = prod_vege_2021.iloc[:,1:].astype(float)
     prod_vege_2021.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
