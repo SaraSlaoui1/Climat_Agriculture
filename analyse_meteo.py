@@ -140,16 +140,12 @@ def analyse_meteo_function():
     # In[26]:
     
     st.write(meteo_2018_2021.head())
-    
 
-    sns.heatmap(meteo_2018_2021.corr())
-    st.pyplot()
-    
     
     # In[27]:
     
     
-    "Nous allons à présent créer une nouvelle colonne de la moyenne des températures les 5 derniers jours. Elle nous sera utile pour les prédictions futures."
+    st.markdown("Nous allons à présent créer une nouvelle colonne de la moyenne des températures les 5 derniers jours. Elle nous sera utile pour les prédictions futures.")
     
     
     # In[28]:
