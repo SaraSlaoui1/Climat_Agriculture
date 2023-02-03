@@ -138,6 +138,7 @@ def analyse_meteo_function():
     meteo_2018_2021.dropna(inplace=True)
     
     # In[26]:
+    st.markdown('DataFrame meteo 2018 à 2021')
     
     st.write(meteo_2018_2021.head())
 
@@ -145,7 +146,7 @@ def analyse_meteo_function():
     # In[27]:
     
     
-    st.markdown("Nous allons à présent créer une nouvelle colonne de la moyenne des températures les 5 derniers jours. Elle nous sera utile pour les prédictions futures.")
+    "Nous allons à présent créer une nouvelle colonne de la moyenne des températures les 5 derniers jours. Elle nous sera utile pour les prédictions futures."
     
     
     # In[28]:
