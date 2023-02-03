@@ -10,6 +10,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import zipfile
+from pathlib import Path
+
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen
 def phenologie_ble_function():
@@ -69,7 +72,9 @@ def phenologie_ble_function():
     
     # In[23]:
     
-    
+    if not Path("Resources/phenologie blé 2018 2021(3).csv").is_file():
+        with zipfile.ZipFile("Resources/phenologie blé 2018 2021(3).zip", 'r') as zip_ref:
+            zip_ref.extractall("Resources")
     pheno_ble = pd.read_csv("Resources/phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
     
     
@@ -307,7 +312,7 @@ def phenologie_ble_function():
     
     
     
-    prod_vege_2018 = pd.read_csv(r"C:\Users\Hassan\Documents\datascientest\projet datascientest PROD AGRICOLES\2018_donneesgrandescultures.csv", sep=';', header = [0,1])
+    prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].astype(float)
     prod_vege_2018.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].round(2)

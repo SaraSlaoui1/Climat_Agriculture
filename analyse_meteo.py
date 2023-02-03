@@ -9,10 +9,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import geopandas as gpd
+import zipfile
+from pathlib import Path
 
 def analyse_meteo_function():
     st.header('Analyse des variables météorologiques de 2018 à 2021')
     
+    if not Path("Resources/meteo 2018 2021 (2).csv").is_file():
+        with zipfile.ZipFile("Resources/meteo 2018 2021 (2).zip", 'r') as zip_ref:
+            zip_ref.extractall("Resources")
     meteo_2018_2021 = pd.read_csv("Resources/meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
     
     

@@ -19,6 +19,9 @@ from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen
 from nltk.tokenize import PunktSentenceTokenizer
 from nltk.tokenize.treebank import TreebankWordDetokenizer
+import zipfile
+from pathlib import Path
+
 
 def machine_learning_function():    
     #st.title("Impact du changement climatique sur l'agriculture française")
@@ -207,7 +210,10 @@ def machine_learning_function():
     
     
     # In[23]:
-    
+    if not Path("Resources/phenologie blé 2018 2021(3).csv").is_file():
+        with zipfile.ZipFile("Resources/phenologie blé 2018 2021(3).zip", 'r') as zip_ref:
+            zip_ref.extractall("Resources")
+     
     
     pheno_ble = pd.read_csv("Resources/phenologie blé 2018 2021(3).csv", error_bad_lines = False, sep = ';', encoding="ISO-8859-1")
     
@@ -360,7 +366,9 @@ def machine_learning_function():
     
     # In[8]:
     #st.header('Analyse des variables météorologiques de 2018 à 2021')
-    
+    if not Path("Resources/meteo 2018 2021 (2).csv").is_file():
+        with zipfile.ZipFile("Resources/meteo 2018 2021 (2).zip", 'r') as zip_ref:
+            zip_ref.extractall("Resources")
     meteo_2018_2021 = pd.read_csv("Resources/meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
     st.dataframe(meteo_2018_2021)
     
