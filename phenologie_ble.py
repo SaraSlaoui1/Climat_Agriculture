@@ -211,7 +211,7 @@ def phenologie_ble_function():
     import datetime as dt
     if annee == '2018':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(data = pheno_ble[pheno_ble['year']==2018],x='date', y='phenological_main_event_code', hue='grid_label')
+        ax = plt.scatter(x=pheno_ble[pheno_ble['year']==2018]['date'], y=pheno_ble[pheno_ble['year']==2018]['phenological_main_event_code'], c=pheno_ble[pheno_ble['year']==2018]['grid_label'])
         plt.xticks([])
         plt.xlabel('mois')
     
