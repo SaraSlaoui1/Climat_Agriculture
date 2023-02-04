@@ -211,7 +211,7 @@ def phenologie_ble_function():
     import datetime as dt
     if annee == '2018':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(pheno_ble['date'][pheno_ble['year']==2018], pheno_ble['phenological_main_event_code'][pheno_ble['year']==2018], hue = pheno_ble['grid_label'][pheno_ble['year']==2018])
+        ax = sns.scatterplot(x=pheno_ble['date'][pheno_ble['year']==2018], y=pheno_ble['phenological_main_event_code'][pheno_ble['year']==2018], hue = pheno_ble['grid_label'][pheno_ble['year']==2018])
         plt.xticks([])
         plt.xlabel('mois')
     
@@ -234,7 +234,7 @@ def phenologie_ble_function():
     
     if annee == '2019':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(pheno_ble['date'][pheno_ble['year']==2019], pheno_ble['phenological_main_event_code'][pheno_ble['year']==2019], hue = pheno_ble['grid_label'][pheno_ble['year']==2019])
+        ax = sns.scatterplot(x=pheno_ble['date'][pheno_ble['year']==2019], y=pheno_ble['phenological_main_event_code'][pheno_ble['year']==2019], hue = pheno_ble['grid_label'][pheno_ble['year']==2019])
         plt.xticks([])
         plt.xlabel('mois')
     
@@ -254,7 +254,7 @@ def phenologie_ble_function():
     
     if annee == '2020':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(pheno_ble['date'][pheno_ble['year']==2020], pheno_ble['phenological_main_event_code'][pheno_ble['year']==2020], hue = pheno_ble['grid_label'][pheno_ble['year']==2020])
+        ax = sns.scatterplot(x=pheno_ble['date'][pheno_ble['year']==2020], y=pheno_ble['phenological_main_event_code'][pheno_ble['year']==2020], hue = pheno_ble['grid_label'][pheno_ble['year']==2020])
         plt.xticks([])
         plt.xlabel('mois')
         ax2 = ax.twinx()
@@ -273,7 +273,7 @@ def phenologie_ble_function():
     if annee == '2021':
     
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(pheno_ble['date'][pheno_ble['year']==2021], pheno_ble['phenological_main_event_code'][pheno_ble['year']==2021], hue = pheno_ble['grid_label'][pheno_ble['year']==2021])
+        ax = sns.scatterplot(x=pheno_ble['date'][pheno_ble['year']==2021], y=pheno_ble['phenological_main_event_code'][pheno_ble['year']==2021], hue = pheno_ble['grid_label'][pheno_ble['year']==2021])
         plt.xticks([])
         plt.yticks([])
         plt.xlabel('mois')

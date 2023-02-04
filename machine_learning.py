@@ -745,11 +745,13 @@ def machine_learning_function():
     
     
     # In[498]:
-    
+   
     
     X_train, X_test, y_train, y_test = train_test_split(data, target, test_size = 0.2, random_state = 123)
     
-    
+    X_train.sort_index(axis=1, inplace=True)
+    test_2021.sort_index(axis=1, inplace=True)
+    X_test.sort_index(axis=1, inplace=True)
     # In[499]:
     
     
@@ -1152,7 +1154,7 @@ def machine_learning_function():
     
     pheno_meteo_pred_train.head()
     
-    
+    pheno_meteo_pred_train.sort_index(axis=1, inplace=True)
     # In[315]:
     
     

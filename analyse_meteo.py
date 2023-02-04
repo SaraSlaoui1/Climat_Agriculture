@@ -188,10 +188,10 @@ def analyse_meteo_function():
         if 'Boxplot'in typegraph:
             fig, axes = plt.subplots(2, 2, figsize=(20,24))
     
-            sns.boxplot(meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2018], color = 'orange', ax = axes[0,0]).set(title='2018')
-            sns.boxplot(meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2019], ax = axes[0,1]).set(title = '2019')
-            sns.boxplot(meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2020], color= 'green', ax = axes[1,0]).set(title = '2020')
-            sns.boxplot(meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2021], color = 'red', ax = axes[1,1]).set(title = '2021')
+            sns.boxplot(x=meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2018], color = 'orange', ax = axes[0,0]).set(title='2018')
+            sns.boxplot(x=meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2019], ax = axes[0,1]).set(title = '2019')
+            sns.boxplot(x=meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2020], color= 'green', ax = axes[1,0]).set(title = '2020')
+            sns.boxplot(x=meteo_2018_2021['Température (°C)'][meteo_2018_2021['Date'].dt.year == 2021], color = 'red', ax = axes[1,1]).set(title = '2021')
             plt.tick_params(axis='both', which='major', labelsize=14)
         
             plt.legend()
@@ -200,23 +200,24 @@ def analyse_meteo_function():
     
         if 'Map' in typegraph:
             fig, ax = plt.subplots(2,2, figsize=(20, 20))
-    
-            merged1.plot('Température (°C)', cmap='OrRd', ax=ax[0], legend=True)
-            ax[0].set_axis_off()
-            ax[0].set_title("Distribution spatiale des t° moyennes \n \n 2018")
+
+            merged1.plot('Température (°C)', cmap='OrRd', ax=ax[0,0], legend=True)
+            ax[0,0].set_axis_off()
+            ax[0,0].set_title("Distribution spatiale des t° moyennes \n \n 2018")
             
-            merged2.plot('Température (°C)', cmap='OrRd', ax=ax[1], legend=True)
-            ax[1].set_axis_off()
-            ax[1].set_title("2019")
+            merged2.plot('Température (°C)', cmap='OrRd', ax=ax[0,1], legend=True)
+            ax[0,1].set_axis_off()
+            ax[0,1].set_title("2019")
             
-            merged3.plot('Température (°C)', cmap='OrRd', ax=ax[2], legend=True)
-            ax[2].set_axis_off()
-            ax[2].set_title("2020")
+            merged3.plot('Température (°C)', cmap='OrRd', ax=ax[1,0], legend=True)
+            ax[1,0].set_axis_off()
+            ax[1,0].set_title("2020")
             
-            merged4.plot('Température (°C)', cmap='OrRd', ax=ax[3], legend=True)
-            ax[3].set_axis_off()
-            ax[3].set_title("2021")
+            merged4.plot('Température (°C)', cmap='OrRd', ax=ax[1,1], legend=True)
+            ax[1,1].set_axis_off()
+            ax[1,1].set_title("2021")
             plt.show()
+
             st.pyplot()
             st.markdown("_En observant les moyennes des températures sur le territoire, l'année la plus chaude semble être 2020 et l'année la plus froide 2021. La répartition des températures est néanmoins inégale pour cette dernière année, les régions du Sud et l'Ile de France semblent montrer des températures bien plus élevées que le reste du pays._")
         
@@ -244,10 +245,10 @@ def analyse_meteo_function():
         if 'Boxplot' in typegraph:
             fig, axes = plt.subplots(2, 2, figsize=(20,24))
             
-            sns.boxplot(meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2018], color = 'orange', ax = axes[0,0]).set(title='2018')
-            sns.boxplot(meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2019], ax = axes[0,1]).set(title = '2019')
-            sns.boxplot(meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2020], color= 'green', ax = axes[1,0]).set(title = '2020')
-            sns.boxplot(meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2021], color = 'red', ax = axes[1,1]).set(title = '2021')
+            sns.boxplot(x=meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2018], color = 'orange', ax = axes[0,0]).set(title='2018')
+            sns.boxplot(x=meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2019], ax = axes[0,1]).set(title = '2019')
+            sns.boxplot(x=meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2020], color= 'green', ax = axes[1,0]).set(title = '2020')
+            sns.boxplot(x=meteo_2018_2021['Précipitations dans les 24 dernières heures'][meteo_2018_2021['Date'].dt.year == 2021], color = 'red', ax = axes[1,1]).set(title = '2021')
             plt.tick_params(axis='both', which='major', labelsize=14)
         
             plt.legend()
@@ -267,43 +268,43 @@ def analyse_meteo_function():
         if 'Map' in typegraph:
             fig, ax = plt.subplots(2,2, figsize=(20, 20))
             
-            merged1.plot('Humidité', cmap='YlGnBu', ax=ax[0], legend=True)
-            ax[0].set_axis_off()
-            ax[0].set_title("Distribution spatiale de l'humidité moyenne \n \n 2018")
+            fig, ax = plt.subplots(2,2, figsize=(20, 20))
+
+            merged1.plot('Humidité', cmap='YlGnBu', ax=ax[0,0], legend=True)
+            ax[0,0].set_axis_off()
+            ax[0,0].set_title("Distribution spatiale de l'humidité moyenne \n \n 2018")
             
-            merged2.plot('Humidité', cmap='YlGnBu', ax=ax[1], legend=True)
-            ax[1].set_axis_off()
-            ax[1].set_title("2019")
+            merged2.plot('Humidité', cmap='YlGnBu', ax=ax[0,1], legend=True)
+            ax[0,1].set_axis_off()
+            ax[0,1].set_title("2019")
             
-            merged3.plot('Humidité', cmap='YlGnBu', ax=ax[2], legend=True)
-            ax[2].set_axis_off()
-            ax[2].set_title("2020")
+            merged3.plot('Humidité', cmap='YlGnBu', ax=ax[1,0], legend=True)
+            ax[1,0].set_axis_off()
+            ax[1,0].set_title("2020")
             
-            merged4.plot('Humidité', cmap='YlGnBu', ax=ax[3], legend=True)
-            ax[3].set_axis_off()
-            ax[3].set_title("2021")
+            merged4.plot('Humidité', cmap='YlGnBu', ax=ax[1,1], legend=True)
+            ax[1,1].set_axis_off()
+            ax[1,1].set_title("2021")
             plt.show()
+
             st.pyplot()
             fig, ax = plt.subplots(2,2, figsize=(20, 20))
+
+            merged1.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[0,0], legend=True)
+            ax[0,0].set_axis_off()
+            ax[0,0].set_title("Distribution spatiale des précipitations moyennes \n \n 2018")
             
-            merged1.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[0], legend=True)
-            ax[0].set_axis_off()
-            ax[0].set_title("Distribution spatiale des précipitations moyennes \n \n 2018")
+            merged2.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[0,1], legend=True)
+            ax[0,1].set_axis_off()
+            ax[0,1].set_title("2019")
             
-            merged2.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[1], legend=True)
-            ax[1].set_axis_off()
-            ax[1].set_title("2019")
+            merged3.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[1,0], legend=True)
+            ax[1,0].set_axis_off()
+            ax[1,0].set_title("2020")
             
-            merged3.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[2], legend=True)
-            ax[2].set_axis_off()
-            ax[2].set_title("2020")
-            
-            merged4.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[3], legend=True)
-            ax[3].set_axis_off()
-            ax[3].set_title("2021")
-            
-            
-            
+            merged4.plot('Précipitations dans les 24 dernières heures', cmap='YlGnBu', ax=ax[1,1], legend=True)
+            ax[1,1].set_axis_off()
+            ax[1,1].set_title("2021")
             
             plt.show()
             st.pyplot()
