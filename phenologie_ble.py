@@ -209,24 +209,28 @@ def phenologie_ble_function():
     # In[79]:
     annee = st.selectbox("Stades de croissance du blé selon leur mois d'apparition",['2018','2019','2020','2021'])
     import datetime as dt
+    import matplotlib.cm as cm
+
 
     if annee == '2018':
         fig, ax = plt.subplots(1, figsize=(10,8))
         grid_labels = pheno_ble[pheno_ble['year']==2018]['grid_label']
         unique_labels = grid_labels.unique()
-        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        color_map = cm.get_cmap("viridis", len(unique_labels))
         
-        for label in unique_labels:
+        for i, label in enumerate(unique_labels):
             label_data = pheno_ble[(pheno_ble['year']==2018) & (pheno_ble['grid_label']==label)]
-            color = color_map[label]
+            color = color_map(i)
             ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
         
         plt.xlabel('mois')
+        plt.xticks([])
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2018, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
+        ax2.set_yticks([])
+
         plt.title('Stades du cycle du blé et mois : 2018')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
@@ -246,19 +250,21 @@ def phenologie_ble_function():
 
         grid_labels = pheno_ble[pheno_ble['year']==2019]['grid_label']
         unique_labels = grid_labels.unique()
-        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        color_map = cm.get_cmap("viridis", len(unique_labels))
         
-        for label in unique_labels:
+        for i, label in enumerate(unique_labels):
             label_data = pheno_ble[(pheno_ble['year']==2019) & (pheno_ble['grid_label']==label)]
-            color = color_map[label]
+            color = color_map(i)
             ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
         
         plt.xlabel('mois')
+
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2019, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
+        ax2.set_yticks([])
+
         plt.title('Stades du cycle du blé et mois : 2019')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
@@ -273,19 +279,20 @@ def phenologie_ble_function():
 
         grid_labels = pheno_ble[pheno_ble['year']==2020]['grid_label']
         unique_labels = grid_labels.unique()
-        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        color_map = cm.get_cmap("viridis", len(unique_labels))
         
-        for label in unique_labels:
+        for i, label in enumerate(unique_labels):
             label_data = pheno_ble[(pheno_ble['year']==2020) & (pheno_ble['grid_label']==label)]
-            color = color_map[label]
+            color = color_map(i)
             ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
-        
         plt.xlabel('mois')
+
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2020, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
+        ax2.set_yticks([])
+
         plt.title('Stades du cycle du blé et mois : 2020')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
@@ -300,11 +307,11 @@ def phenologie_ble_function():
 
         grid_labels = pheno_ble[pheno_ble['year']==2021]['grid_label']
         unique_labels = grid_labels.unique()
-        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        color_map = cm.get_cmap("viridis", len(unique_labels))
         
-        for label in unique_labels:
+        for i, label in enumerate(unique_labels):
             label_data = pheno_ble[(pheno_ble['year']==2021) & (pheno_ble['grid_label']==label)]
-            color = color_map[label]
+            color = color_map(i)
             ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
         
         plt.xlabel('mois')
@@ -312,7 +319,7 @@ def phenologie_ble_function():
         month_dates = [dt.datetime(2021, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
+        ax2.set_yticks([])
         plt.title('Stades du cycle du blé et mois : 2021')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
