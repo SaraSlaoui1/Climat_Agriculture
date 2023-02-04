@@ -230,7 +230,6 @@ def phenologie_ble_function():
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
         ax2.set_yticks([])
-
         plt.title('Stades du cycle du blé et mois : 2018')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
@@ -535,7 +534,7 @@ def phenologie_ble_function():
     # In[111]:
     
     
-    st.markdown("Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains. En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. Cela correspond au stade 3 de croissance du blé. Pour l'année 2019, on remarque que le stade 3 est majoritaire. C'est donc probablement une des raisons pour lesquelles le rendement est plus important.")
+    st.markdown("**Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains.** En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. **Cela correspond au stade 3 de croissance du blé.** Pour l'année 2019, on remarque que le stade 3 est majoritaire. C'est donc probablement une des raisons pour lesquelles le rendement est plus important.")
     
     
     # In[112]:
