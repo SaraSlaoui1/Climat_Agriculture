@@ -209,20 +209,29 @@ def phenologie_ble_function():
     # In[79]:
     annee = st.selectbox("Stades de croissance du blé selon leur mois d'apparition",['2018','2019','2020','2021'])
     import datetime as dt
+
     if annee == '2018':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = plt.scatter(x=pheno_ble[pheno_ble['year']==2018]['date'], y=pheno_ble[pheno_ble['year']==2018]['phenological_main_event_code'], c=pheno_ble[pheno_ble['year']==2018]['grid_label'])
-        plt.xticks([])
+        grid_labels = pheno_ble[pheno_ble['year']==2018]['grid_label']
+        unique_labels = grid_labels.unique()
+        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        
+        for label in unique_labels:
+            label_data = pheno_ble[(pheno_ble['year']==2018) & (pheno_ble['grid_label']==label)]
+            color = color_map[label]
+            ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
+        
         plt.xlabel('mois')
-    
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2018, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks([])
+        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
         plt.title('Stades du cycle du blé et mois : 2018')
-        ax.legend(bbox_to_anchor=(1.35, 1));
+        ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
+
+
         st.markdown("_Stades 0, 1 et 2 début à la mi-septembre, octobre et fin octobre pour la récolte de 2019. Pour la récolte de 2018 les stades 1 et 2 se terminent respectivement en avril (à part quelques exceptions en mai) et en mai, avec donc environ 3 mois de retard sur le calendrier décrit plus haut. Le stade 3 débute en février et finit en juin. Les stades 5 et 6 commencent fin avril et finissent fin juin et juillet.Les stades 7 et 8 débutent en juin et se terminent en juillet, donc avec un mois d'avance par rapport au calendrier typique._")
 
     # In[80]:
@@ -234,19 +243,26 @@ def phenologie_ble_function():
     
     if annee == '2019':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(data = pheno_ble[pheno_ble['year']==2019],x='date', y='phenological_main_event_code', hue='grid_label')
-        plt.xticks([])
+
+        grid_labels = pheno_ble[pheno_ble['year']==2019]['grid_label']
+        unique_labels = grid_labels.unique()
+        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        
+        for label in unique_labels:
+            label_data = pheno_ble[(pheno_ble['year']==2019) & (pheno_ble['grid_label']==label)]
+            color = color_map[label]
+            ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
+        
         plt.xlabel('mois')
-    
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2019, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks([])
-    
+        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
         plt.title('Stades du cycle du blé et mois : 2019')
-        ax.legend(bbox_to_anchor=(1.35, 1));
+        ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
+
         st.markdown("_Observations : Les stades 1 et 2 débutés en octobre et fin octobre / mi-novembre 2018 se terminent en avril et mai avec donc environ 3 mois de retard sur le calendrier. Le stade 3 débute en février et finit fin juin. Les stades débutent 5 et 6 fin avril / mai et finissent en juillet. Les stades 7 et 8 commencent en mai et juin et se terminent fin juillet, donc avec un mois d'avance par rapport au calendrier typique. Stades 0, 1 et 2 pour la récolte de 2020 commencent en octobre._")
         
     
@@ -254,40 +270,53 @@ def phenologie_ble_function():
     
     if annee == '2020':
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(data = pheno_ble[pheno_ble['year']==2020],x='date', y='phenological_main_event_code', hue='grid_label')
-        plt.xticks([])
+
+        grid_labels = pheno_ble[pheno_ble['year']==2020]['grid_label']
+        unique_labels = grid_labels.unique()
+        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        
+        for label in unique_labels:
+            label_data = pheno_ble[(pheno_ble['year']==2020) & (pheno_ble['grid_label']==label)]
+            color = color_map[label]
+            ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
+        
         plt.xlabel('mois')
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2020, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks([])
+        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
         plt.title('Stades du cycle du blé et mois : 2020')
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
+
         
         st.markdown('_Observations : Calendrier similaire à 2019 mais stade 3 visiblement plus court_')
     
     
     # In[85]:
     if annee == '2021':
-    
         fig, ax = plt.subplots(1, figsize=(10,8))
-        ax = sns.scatterplot(data = pheno_ble[pheno_ble['year']==2021],x='date', y='phenological_main_event_code', hue='grid_label')        
-        plt.xticks([])
-        plt.yticks([])
+
+        grid_labels = pheno_ble[pheno_ble['year']==2021]['grid_label']
+        unique_labels = grid_labels.unique()
+        color_map = dict(zip(unique_labels, sns.color_palette("husl", n_colors=len(unique_labels))))
+        
+        for label in unique_labels:
+            label_data = pheno_ble[(pheno_ble['year']==2021) & (pheno_ble['grid_label']==label)]
+            color = color_map[label]
+            ax.scatter(x=label_data['date'], y=label_data['phenological_main_event_code'], c=color, label=label)
+        
         plt.xlabel('mois')
-    
         ax2 = ax.twinx()
         month_dates = [dt.datetime(2021, i, 1) for i in range(1, 13)]
         ax2.set_xticks(month_dates)
         ax2.set_xticklabels(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
-        ax2.set_yticks([0,1,2,3,4])
-        ax2.yaxis.set_label_coords(-0.1,0.5)
-    
+        ax2.set_yticks(np.arange(pheno_ble['phenological_main_event_code'].min(), pheno_ble['phenological_main_event_code'].max() + 1))
         plt.title('Stades du cycle du blé et mois : 2021')
-        ax.legend(bbox_to_anchor=(1.35, 1));
+        ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
+
         st.markdown("_Observations : Nous avons visiblement moins de données pour l'année 2021, les stades 5 et supérieurs ne sont pas représentés. (On utilisera l'année 2021 comme test, pour prédictions/analyse en ML de la relation météo et phénologie.)_")
     
     # In[87]:
