@@ -5,7 +5,6 @@ Created on Fri Feb  3 22:19:14 2023
 @author: Sara
 """
 import streamlit as st
-import sys
 
 def intro_function():
     st.header('Introduction')
