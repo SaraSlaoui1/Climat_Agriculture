@@ -553,7 +553,7 @@ def machine_learning_function():
     
     
     # In[474]:
-    st.markdown('Test Chi-2 pour déterminer la corrélation entre une variable catégorielle et une variable numérique cotinue')
+    st.markdown('Test Chi-2 pour déterminer la corrélation entre une variable catégorielle et une variable numérique continue')
     variable = st.selectbox('Variable catégorielle',['Température (°C)','rolling_avg_temp','Précipitations dans les 24 dernières heures','Humidité'])
     if variable == 'Température (°C)':
         from scipy.stats import chi2_contingency
