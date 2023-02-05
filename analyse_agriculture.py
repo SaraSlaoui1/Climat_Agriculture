@@ -409,9 +409,9 @@ def analyse_agriculture_function():
     # In[23]:
     
     
-    prod_2018_2019 = pd.DataFrame(ecart_production_2018_2019.values.reshape(14,1), columns = ['ecart production 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    prod_2019_2020 = pd.DataFrame(ecart_production_2019_2020.values.reshape(14,1), columns = ['ecart production 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    prod_2020_2021 = pd.DataFrame(ecart_production_2020_2021.values.reshape(14,1), columns = ['ecart production 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    prod_2018_2019 = pd.DataFrame(ecart_production_2018_2019.values.reshape(14,1), columns = ['écart production 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    prod_2019_2020 = pd.DataFrame(ecart_production_2019_2020.values.reshape(14,1), columns = ['écart production 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    prod_2020_2021 = pd.DataFrame(ecart_production_2020_2021.values.reshape(14,1), columns = ['écart production 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
     
     
     # In[24]:
@@ -439,9 +439,9 @@ def analyse_agriculture_function():
     moyenne_2021 = prod_vege_2021.iloc[:, prod_vege_2021.columns.get_level_values(1)=='Rendement(q/ha)'].mean()
     ecart_rendement_2020_2021 = (moyenne_2021 - moyenne_2020) / moyenne_2021
     
-    rend_2018_2019 = pd.DataFrame(ecart_rendement_2018_2019.values.reshape(14,1), columns = ['ecart rendement 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    rend_2019_2020 = pd.DataFrame(ecart_rendement_2019_2020.values.reshape(14,1), columns = ['ecart rendement 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    rend_2020_2021 = pd.DataFrame(ecart_rendement_2020_2021.values.reshape(14,1), columns = ['ecart rendement 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    rend_2018_2019 = pd.DataFrame(ecart_rendement_2018_2019.values.reshape(14,1), columns = ['écart rendement 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    rend_2019_2020 = pd.DataFrame(ecart_rendement_2019_2020.values.reshape(14,1), columns = ['écart rendement 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    rend_2020_2021 = pd.DataFrame(ecart_rendement_2020_2021.values.reshape(14,1), columns = ['écart rendement 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
     
     variations_rend_2018_2021 = pd.concat([rend_2018_2019, rend_2019_2020, rend_2020_2021], axis = 1)
     
@@ -461,9 +461,9 @@ def analyse_agriculture_function():
     moyenne_2021 = prod_vege_2021.iloc[:, prod_vege_2021.columns.get_level_values(1)=='Superficie(1000 ha)'].mean()
     ecart_surface_2020_2021 = (moyenne_2021 - moyenne_2020) / moyenne_2021
     
-    surf_2018_2019 = pd.DataFrame(ecart_surface_2018_2019.values.reshape(14,1), columns = ['ecart surface 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    surf_2019_2020 = pd.DataFrame(ecart_surface_2019_2020.values.reshape(14,1), columns = ['ecart surface 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
-    surf_2020_2021 = pd.DataFrame(ecart_surface_2020_2021.values.reshape(14,1), columns = ['ecart surface 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    surf_2018_2019 = pd.DataFrame(ecart_surface_2018_2019.values.reshape(14,1), columns = ['écart surface 2018-2019'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    surf_2019_2020 = pd.DataFrame(ecart_surface_2019_2020.values.reshape(14,1), columns = ['écart surface 2019-2020'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
+    surf_2020_2021 = pd.DataFrame(ecart_surface_2020_2021.values.reshape(14,1), columns = ['écart surface 2020-2021'], index = prod_vege_2018.columns[2:].get_level_values(0).unique())
     
     variations_surf_2018_2021 = pd.concat([surf_2018_2019, surf_2019_2020, surf_2020_2021], axis = 1)
     
