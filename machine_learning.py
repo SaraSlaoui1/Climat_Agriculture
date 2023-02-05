@@ -790,8 +790,8 @@ def machine_learning_function():
         
         
         rf.fit(X_train_scaled, y_train)
-        y_pred = rf.predict(X_test_scaled)
-        #st.write(pd.crosstab(y_pred, y_test))
+        y_pred_rf = rf.predict(X_test_scaled)
+        st.write(pd.crosstab(y_pred_rf, y_test))
         st.write('score RF : ', rf.score(X_test_scaled, y_test))
         
         
@@ -810,14 +810,14 @@ def machine_learning_function():
         # In[504]:
         
         
-        precision_score(y_pred, y_test, average = "weighted")
+        precision_score(y_pred_rf, y_test, average = "weighted")
         
         
         # In[505]:
         
         
         
-        st.write(f'precision score RF : {precision_score(y_pred, y_test, average = "weighted")}')
+        st.write(f'precision score RF : {precision_score(y_pred_rf, y_test, average = "weighted")}')
         
         
         # In[506]:
@@ -829,8 +829,8 @@ def machine_learning_function():
         # In[507]:
         
         
-        y_pred_2021 = rf.predict(test_2021_scaled)
-        st.write('prédictions 2021 RF : ', np.unique(y_pred_2021))
+        y_pred_2021_rf = rf.predict(test_2021_scaled)
+        st.write('prédictions 2021 RF : ', np.unique(y_pred_2021_rf))
         
 
     # In[508]:
@@ -845,8 +845,8 @@ def machine_learning_function():
         
         
         gb.fit(X_train_scaled, y_train)
-        y_pred = gb.predict(X_test_scaled)
-        #st.write(pd.crosstab(y_pred, y_test))
+        y_pred_gb = gb.predict(X_test_scaled)
+        st.write(pd.crosstab(y_pred_gb, y_test))
         st.write('score GB : ', gb.score(X_test_scaled, y_test))
         
         
@@ -865,14 +865,14 @@ def machine_learning_function():
         # In[511]:
         
         
-        print(f'precision score GB: {precision_score(y_pred, y_test, average = "weighted")}')
+        print(f'precision score GB: {precision_score(y_pred_gb, y_test, average = "weighted")}')
         
         
         # In[512]:
         
         
-        y_pred_2021 = gb.predict(test_2021_scaled)
-        st.write('prédictions 2021 GB : ', np.unique(y_pred_2021))
+        y_pred_2021_gb = gb.predict(test_2021_scaled)
+        st.write('prédictions 2021 GB : ', np.unique(y_pred_2021_gb))
         
         
     # In[513]:
@@ -899,7 +899,7 @@ def machine_learning_function():
         clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
         clf_entr.fit(X_train_scaled, y_train)
         y_pred = clf_entr.predict(X_test_scaled)
-        #st.write(pd.crosstab(y_pred, y_test))
+        st.write(pd.crosstab(y_pred, y_test))
         
         
         # In[525]:
@@ -947,15 +947,16 @@ def machine_learning_function():
         
         knn.fit(X_train_scaled, y_train)
         
-        y_pred = knn.predict(X_test_scaled)
+        y_pred_knn = knn.predict(X_test_scaled)
         
         st.write("Accuracy score KNN: {:.2f}".format(knn.score(X_test_scaled, y_test)))
         
-        
+        st.write(pd.crosstab(y_pred_knn, y_test))
+
         # In[521]:
         
         
-        st.write(f'precision score KNN: {precision_score(y_pred, y_test, average = "weighted")}')
+        st.write(f'precision score KNN: {precision_score(y_pred_knn, y_test, average = "weighted")}')
         
         
         # In[522]:
@@ -972,8 +973,11 @@ def machine_learning_function():
     
     
     # In[530]:
-    
-    
+    clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
+    clf_entr.fit(X_train_scaled, y_train)
+    y_pred = clf_entr.predict(X_test_scaled)
+    y_pred_2021 = clf_entr.predict(test_2021_scaled)
+
     test_2021['phenological_main_event_code'] = y_pred_2021
     
     
