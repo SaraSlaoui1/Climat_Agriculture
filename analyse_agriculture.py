@@ -539,9 +539,9 @@ def analyse_agriculture_function():
     
     
     # In[20]:
-    st.subheader('Rapport du GIEC sur les impacts sur changement climatique sur les récoltes.')
+    if st.button('Rapport du GIEC sur les impacts sur changement climatique sur les récoltes.'):
     
-    st.write(giec_agri_pred)
+        st.write(giec_agri_pred)
     
     
     # In[39]:
