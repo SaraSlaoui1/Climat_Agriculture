@@ -878,19 +878,19 @@ def machine_learning_function():
     # In[513]:
     if alg == 'Decision Tree':
     
-        clf = DecisionTreeClassifier()
-        param_grid = {'max_depth': range(1,10),
-                      'min_samples_split': [2, 3, 4, 5, 6, 7],
-                      'criterion': ['gini','entropy'],
-                      }
+        #clf = DecisionTreeClassifier()
+        #param_grid = {'max_depth': range(1,10),
+         #             'min_samples_split': [2, 3, 4, 5, 6, 7],
+          #            'criterion': ['gini','entropy'],
+           #           }
         
-        grid_search = GridSearchCV(clf, param_grid, cv=8, scoring='accuracy')
+        #grid_search = GridSearchCV(clf, param_grid, cv=8, scoring='accuracy')
         
-        grid_search.fit(X_train_scaled, y_train)
-        print(grid_search.best_params_)
+        #grid_search.fit(X_train_scaled, y_train)
+        #print(grid_search.best_params_)
         
-        print(grid_search.best_score_)
-        print(grid_search.best_estimator_)
+        #print(grid_search.best_score_)
+        #print(grid_search.best_estimator_)
         
         
         # In[524]:
@@ -969,16 +969,20 @@ def machine_learning_function():
     # In[523]:
     
     
-    st.markdown('Modèle le plus performant : Decision Tree, metric : entropy')
+    st.markdown('Modèle le plus performant : Gradient Boosting')
     
     
     # In[530]:
-    clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
-    clf_entr.fit(X_train_scaled, y_train)
-    y_pred = clf_entr.predict(X_test_scaled)
-    y_pred_2021 = clf_entr.predict(test_2021_scaled)
+    from sklearn.ensemble import GradientBoostingClassifier
+    
+    gb = GradientBoostingClassifier(n_estimators = 100, max_depth = 7, learning_rate = 0.01, subsample = 1)
+    
+    gb.fit(X_train_scaled, y_train)
+    y_pred_gb = gb.predict(X_test_scaled)
+    y_pred_2021_gb = gb.predict(test_2021_scaled)
 
-    test_2021['phenological_main_event_code'] = y_pred_2021
+
+    test_2021['phenological_main_event_code'] = y_pred_2021_gb
     
     
     # In[531]:
@@ -1167,10 +1171,11 @@ def machine_learning_function():
     
     # In[316]:
     st.markdown("**Algorithme Decision Tree (utilisé précedemment) pour prédire les stades de l'année 2100**")
-    clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
-    clf_entr.fit(X_train_scaled, y_train)
+
+    gb = GradientBoostingClassifier(n_estimators = 100, max_depth = 7, learning_rate = 0.01, subsample = 1)
     
-    y_pred_2100 = clf_entr.predict(pheno_meteo_pred_train_scaled)
+    gb.fit(X_train_scaled, y_train)
+    y_pred_2100 = gb.predict(pheno_meteo_pred_train_scaled)
     
     
     # In[317]:
