@@ -737,12 +737,14 @@ def machine_learning_function():
     # In[497]:
     
     
-    from sklearn.model_selection import GridSearchCV, cross_val_score
+    from sklearn.model_selection import GridSearchCV
     from sklearn.tree import DecisionTreeClassifier
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import precision_score
     from sklearn.model_selection import train_test_split
-    
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.ensemble import GradientBoostingClassifier
+
     
     # In[498]:
    
@@ -759,24 +761,25 @@ def machine_learning_function():
     scaler = preprocessing.StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
-    
+    test_2021_scaled = scaler.transform(test_2021)
+
     
     # In[500]:
     
     
-    param_grid = {'n_estimators': [10, 50, 100],
-                  'max_depth': [5, 10, 20],
-                  'min_samples_split': [2, 5, 10]
-                  }
-    rf = RandomForestClassifier()
+    #param_grid = {'n_estimators': [10, 50, 100],
+    #              'max_depth': [5, 10, 20],
+     #             'min_samples_split': [2, 5, 10]
+        #          }
+    #rf = RandomForestClassifier()
     
-    grid_search = GridSearchCV(rf, param_grid, cv=7, scoring='accuracy')
+    #grid_search = GridSearchCV(rf, param_grid, cv=7, scoring='accuracy')
     
-    grid_search.fit(X_train_scaled, y_train)
+    #grid_search.fit(X_train_scaled, y_train)
     
-    "Best parameters RF: {}".format(grid_search.best_params_)
-    "Best score RF: {:.2f}".format(grid_search.best_score_)
-    test_2021_scaled = scaler.transform(test_2021)
+    #"Best parameters RF: {}".format(grid_search.best_params_)
+    #"Best score RF: {:.2f}".format(grid_search.best_score_)
+    #test_2021_scaled = scaler.transform(test_2021)
 
     
     # In[501]:
@@ -792,51 +795,40 @@ def machine_learning_function():
         rf.fit(X_train_scaled, y_train)
         y_pred_rf = rf.predict(X_test_scaled)
         st.write(pd.crosstab(y_pred_rf, y_test))
-        st.write('score RF : ', rf.score(X_test_scaled, y_test))
+        st.write(f'score RF : {rf.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[503]:
         
         
-        features = data.columns
-        features_importance = {}
-        sorted_features = {}
-        for x,j in zip(features, rf.feature_importances_):
-            features_importance[x] = j
-        sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        print(sorted_features[:8])
+        #features = data.columns
+        #features_importance = {}
+        #sorted_features = {}
+        #for x,j in zip(features, rf.feature_importances_):
+         #   features_importance[x] = j
+        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
+        #print(sorted_features[:8])
         
         
-        # In[504]:
-        
-        
-        precision_score(y_pred_rf, y_test, average = "weighted")
-        
-        
-        # In[505]:
-        
-        
-        
-        st.write(f'precision score RF : {precision_score(y_pred_rf, y_test, average = "weighted")}')
+        st.write(f'precision score RF : {precision_score(y_pred_rf, y_test, average = "weighted").round(3)}')
         
         
         # In[506]:
         
         
-        test_2021_scaled = scaler.transform(test_2021)
+        #test_2021_scaled = scaler.transform(test_2021)
         
         
         # In[507]:
         
         
         y_pred_2021_rf = rf.predict(test_2021_scaled)
-        st.write('prédictions 2021 RF : ', np.unique(y_pred_2021_rf))
+        st.write(f'prédictions 2021 RF : {np.unique(y_pred_2021_rf)}')
         
 
     # In[508]:
     if alg == 'Gradient Boosting':
     
-        from sklearn.ensemble import GradientBoostingClassifier
         
         gb = GradientBoostingClassifier(n_estimators = 100, max_depth = 7, learning_rate = 0.01, subsample = 1)
         
@@ -847,32 +839,32 @@ def machine_learning_function():
         gb.fit(X_train_scaled, y_train)
         y_pred_gb = gb.predict(X_test_scaled)
         st.write(pd.crosstab(y_pred_gb, y_test))
-        st.write('score GB : ', gb.score(X_test_scaled, y_test))
+        st.write(f'score GB : {gb.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[510]:
         
         
-        features = data.columns
-        features_importance = {}
-        sorted_features = {}
-        for x,j in zip(features, gb.feature_importances_):
-            features_importance[x] = j
-        sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        print(sorted_features[:8])
+        #features = data.columns
+        #features_importance = {}
+        #sorted_features = {}
+        #for x,j in zip(features, gb.feature_importances_):
+         #   features_importance[x] = j
+        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
+        #print(sorted_features[:8])
         
         
         # In[511]:
         
         
-        print(f'precision score GB: {precision_score(y_pred_gb, y_test, average = "weighted")}')
+        st.write(f'precision score GB: {precision_score(y_pred_gb, y_test, average = "weighted").round(3)}')
         
         
         # In[512]:
         
         
         y_pred_2021_gb = gb.predict(test_2021_scaled)
-        st.write('prédictions 2021 GB : ', np.unique(y_pred_2021_gb))
+        st.write(f'prédictions 2021 GB : {np.unique(y_pred_2021_gb)}')
         
         
     # In[513]:
@@ -895,7 +887,6 @@ def machine_learning_function():
         
         # In[524]:
         
-        
         clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
         clf_entr.fit(X_train_scaled, y_train)
         y_pred = clf_entr.predict(X_test_scaled)
@@ -905,25 +896,25 @@ def machine_learning_function():
         # In[525]:
         
         
-        st.write('accuracy score DT : ', clf_entr.score(X_test_scaled, y_test))
+        st.write(f'accuracy score DT :  {clf_entr.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[526]:
         
         
-        features = data.columns
-        features_importance = {}
-        sorted_features = {}
-        for x,j in zip(features, clf_entr.feature_importances_):
-            features_importance[x] = j
-        sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        print(sorted_features[:8])
+        #features = data.columns
+        #features_importance = {}
+        #sorted_features = {}
+        #for x,j in zip(features, clf_entr.feature_importances_):
+         #   features_importance[x] = j
+        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
+        #print(sorted_features[:8])
         
         
         # In[527]:
         
         
-        st.write(f'precision score DT : {precision_score(y_pred, y_test, average = "weighted")}')
+        st.write(f'precision score DT : {precision_score(y_pred, y_test, average = "weighted").round(3)}')
         
         
         # In[528]:
@@ -935,13 +926,12 @@ def machine_learning_function():
         # In[529]:
         
         
-        st.write('prédictions 2021 DT : ',np.unique(y_pred_2021))
+        st.write(f'prédictions 2021 DT : {np.unique(y_pred_2021)}')
     
     
     # In[520]:
     if alg == 'KNN':
     
-        from sklearn.neighbors import KNeighborsClassifier
         
         knn = KNeighborsClassifier(n_neighbors=5)
         
@@ -949,40 +939,37 @@ def machine_learning_function():
         
         y_pred_knn = knn.predict(X_test_scaled)
         
-        st.write("Accuracy score KNN: {:.2f}".format(knn.score(X_test_scaled, y_test)))
+        st.write(f'accuracy score KNN :  {knn.score(X_test_scaled, y_test).round(3)}')
         
         st.write(pd.crosstab(y_pred_knn, y_test))
 
         # In[521]:
         
         
-        st.write(f'precision score KNN: {precision_score(y_pred_knn, y_test, average = "weighted")}')
+        st.write(f'precision score KNN: {precision_score(y_pred_knn, y_test, average = "weighted").round(3)}')
         
         
         # In[522]:
         
         
         y_pred_knn_2021 = knn.predict(test_2021_scaled)
-        st.write('prédictions 2021 KNN : ',np.unique(y_pred_knn_2021))
+        st.write(f'prédictions 2021 KNN : {np.unique(y_pred_knn_2021)}')
     
     
     # In[523]:
     
     
-    st.markdown('Modèle le plus performant : Gradient Boosting')
+    st.markdown('Modèle le plus performant : Decision Tree')
     
     
     # In[530]:
-    from sklearn.ensemble import GradientBoostingClassifier
-    
-    gb = GradientBoostingClassifier(n_estimators = 100, max_depth = 7, learning_rate = 0.01, subsample = 1)
-    
-    gb.fit(X_train_scaled, y_train)
-    y_pred_gb = gb.predict(X_test_scaled)
-    y_pred_2021_gb = gb.predict(test_2021_scaled)
+    clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
+    clf_entr.fit(X_train_scaled, y_train)
 
+            
+    y_pred_2021 = clf_entr.predict(test_2021_scaled)
 
-    test_2021['phenological_main_event_code'] = y_pred_2021_gb
+    test_2021['phenological_main_event_code'] = y_pred_2021
     
     
     # In[531]:
@@ -1172,10 +1159,9 @@ def machine_learning_function():
     # In[316]:
     st.markdown("**Algorithme Decision Tree (utilisé précedemment) pour prédire les stades de l'année 2100**")
 
-    gb = GradientBoostingClassifier(n_estimators = 100, max_depth = 7, learning_rate = 0.01, subsample = 1)
-    
-    gb.fit(X_train_scaled, y_train)
-    y_pred_2100 = gb.predict(pheno_meteo_pred_train_scaled)
+    clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
+    clf_entr.fit(X_train_scaled, y_train)
+    y_pred_2100 = clf_entr.predict(pheno_meteo_pred_train_scaled)
     
     
     # In[317]:
@@ -1231,7 +1217,7 @@ def machine_learning_function():
     # In[251]:
     
     
-    st.markdown("Comme démontré précedemment, le stade déterminant à une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le rendement aura tendance à être plus faible en 2100.")
+    st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le rendement aura tendance à être plus faible en 2100.")
     
     
     # In[252]:
