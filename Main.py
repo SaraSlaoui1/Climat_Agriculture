@@ -25,10 +25,11 @@ from analyse_meteo import analyse_meteo_function
 from machine_learning import machine_learning_function
 from conclusion import conclusion_function
 from introduction import intro_function
-
+from sources import sources_function
+st.cache()
 def main():
     st.title("Projet DataScientest Agriculture et Météo")
-    menu = ["Introduction","Analyse Agriculture", "Phenologie Ble", "Analyse Meteo", "Machine Learning", "Conclusion"]
+    menu = ["Introduction","Analyse Agriculture", "Phenologie Ble", "Analyse Meteo", "Machine Learning", "Conclusion", "Sources"]
     choice = st.sidebar.selectbox("Select a page", menu)
     if choice == 'Introduction':
         intro_function()
@@ -40,8 +41,10 @@ def main():
         analyse_meteo_function()
     elif choice == "Machine Learning":
         machine_learning_function()
-    else:
+    elif choice == 'Conclusion':
         conclusion_function()
+    else:
+        sources_function()
 
 if __name__ == "__main__":
     main()
