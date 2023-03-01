@@ -21,10 +21,10 @@ from nltk.tokenize import PunktSentenceTokenizer
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 import zipfile
 from pathlib import Path
-
+from joblib import dump, load
+import joblib
 
 def machine_learning_function():    
-    #st.title("Impact du changement climatique sur l'agriculture française")
     st.set_option('deprecation.showPyplotGlobalUse', False)
     prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].astype(float)
@@ -793,9 +793,14 @@ def machine_learning_function():
         
         
         rf.fit(X_train_scaled, y_train)
-        y_pred_rf = rf.predict(X_test_scaled)
+
+        joblib.dump(rf, 'random_forest_model.joblib')
+
+        loaded_rf = joblib.load('random_forest_model.joblib')
+
+        y_pred_rf = loaded_rf.predict(X_test_scaled)
         st.write(pd.crosstab(y_pred_rf, y_test))
-        st.write(f'score RF : {rf.score(X_test_scaled, y_test).round(3)}')
+        st.write(f'score RF : {loaded_rf.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[503]:
@@ -822,7 +827,7 @@ def machine_learning_function():
         # In[507]:
         
         
-        y_pred_2021_rf = rf.predict(test_2021_scaled)
+        y_pred_2021_rf = loaded_rf.predict(test_2021_scaled)
         st.write(f'prédictions 2021 RF : {np.unique(y_pred_2021_rf)}')
         
 
@@ -837,9 +842,13 @@ def machine_learning_function():
         
         
         gb.fit(X_train_scaled, y_train)
-        y_pred_gb = gb.predict(X_test_scaled)
+        joblib.dump(gb,'gradient_bossting_model.joblib')
+
+        loaded_gb = joblib.load('gradient_bossting_model.joblib')
+
+        y_pred_gb = loaded_gb.predict(X_test_scaled)
         st.write(pd.crosstab(y_pred_gb, y_test))
-        st.write(f'score GB : {gb.score(X_test_scaled, y_test).round(3)}')
+        st.write(f'score GB : {loaded_gb.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[510]:
@@ -863,7 +872,7 @@ def machine_learning_function():
         # In[512]:
         
         
-        y_pred_2021_gb = gb.predict(test_2021_scaled)
+        y_pred_2021_gb = loaded_gb.predict(test_2021_scaled)
         st.write(f'prédictions 2021 GB : {np.unique(y_pred_2021_gb)}')
         
         
@@ -889,14 +898,18 @@ def machine_learning_function():
         
         clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
         clf_entr.fit(X_train_scaled, y_train)
-        y_pred = clf_entr.predict(X_test_scaled)
+        joblib.dump(clf_entr,'decision_tree_model.joblib')
+
+        loaded_clf_entr = joblib.load('decision_tree_model.joblib')
+
+        y_pred = loaded_clf_entr.predict(X_test_scaled)
         st.write(pd.crosstab(y_pred, y_test))
         
         
         # In[525]:
         
         
-        st.write(f'accuracy score DT :  {clf_entr.score(X_test_scaled, y_test).round(3)}')
+        st.write(f'accuracy score DT :  {loaded_clf_entr.score(X_test_scaled, y_test).round(3)}')
         
         
         # In[526]:
@@ -920,7 +933,7 @@ def machine_learning_function():
         # In[528]:
         
         
-        y_pred_2021 = clf_entr.predict(test_2021_scaled)
+        y_pred_2021 = loaded_clf_entr.predict(test_2021_scaled)
         
         
         # In[529]:
@@ -937,9 +950,13 @@ def machine_learning_function():
         
         knn.fit(X_train_scaled, y_train)
         
-        y_pred_knn = knn.predict(X_test_scaled)
+        joblib.dump(knn,'knn_model.joblib')
+
+        loaded_knn = joblib.load('knn_model.joblib')
+
+        y_pred_knn = loaded_knn.predict(X_test_scaled)
         
-        st.write(f'accuracy score KNN :  {knn.score(X_test_scaled, y_test).round(3)}')
+        st.write(f'accuracy score KNN :  {loaded_knn.score(X_test_scaled, y_test).round(3)}')
         
         st.write(pd.crosstab(y_pred_knn, y_test))
 
@@ -952,7 +969,7 @@ def machine_learning_function():
         # In[522]:
         
         
-        y_pred_knn_2021 = knn.predict(test_2021_scaled)
+        y_pred_knn_2021 = loaded_knn.predict(test_2021_scaled)
         st.write(f'prédictions 2021 KNN : {np.unique(y_pred_knn_2021)}')
     
     
@@ -1161,7 +1178,10 @@ def machine_learning_function():
 
     clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
     clf_entr.fit(X_train_scaled, y_train)
-    y_pred_2100 = clf_entr.predict(pheno_meteo_pred_train_scaled)
+    joblib.dump(clf_entr, 'decision_tree_model.joblib')
+    loaded_clf_entr = joblib.load('decision_tree_model.joblib')
+
+    y_pred_2100 = loaded_clf_entr.predict(pheno_meteo_pred_train_scaled)
     
     
     # In[317]:
@@ -1219,7 +1239,7 @@ def machine_learning_function():
     
     st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le rendement aura tendance à être plus faible en 2100.")
     
-    
+
     # In[252]:
    
     
