@@ -370,7 +370,6 @@ def machine_learning_function():
         with zipfile.ZipFile("Resources/meteo 2018 2021 (2).zip", 'r') as zip_ref:
             zip_ref.extractall("Resources")
     meteo_2018_2021 = pd.read_csv("Resources/meteo 2018 2021 (2).csv", sep=';', error_bad_lines = False)
-    st.dataframe(meteo_2018_2021.head(10))
     
     
     
