@@ -955,12 +955,12 @@ def machine_learning_function():
 
         y_pred_knn = loaded_knn.predict(X_test_scaled)
         
-        st.write(f'accuracy score KNN :  {loaded_knn.score(X_test_scaled, y_test).round(3)}')
         
         st.write(pd.crosstab(y_pred_knn, y_test))
 
         # In[521]:
-        
+        st.write(f'accuracy score KNN :  {loaded_knn.score(X_test_scaled, y_test).round(3)}')
+
         
         st.write(f'precision score KNN: {precision_score(y_pred_knn, y_test, average = "weighted").round(3)}')
         
