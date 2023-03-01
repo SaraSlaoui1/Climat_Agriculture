@@ -529,7 +529,7 @@ def machine_learning_function():
     
     # In[470]:
     
-    st.markdown("Merging de météo et phénologie sans l'année 2021 et en supprimant les variables latitude, longitude")
+    st.markdown("Merging de météo et phénologie sans l'année 2021 ")
     st.write(train_data.head())
     
     
