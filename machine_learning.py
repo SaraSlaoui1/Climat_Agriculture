@@ -1050,7 +1050,7 @@ def machine_learning_function():
     # In[308]:
     
     
-    st.markdown("**Le stade 3 représente une partie relativement faible des stades observés** (de très peu majoritaire), ce qui peut expliquer **un rendement moins important** pour cette année. Ce sont des prédictions avec plus de dates que pour les autres années, c'est pourquoi la répartition des stades diffère des années précemment étudiées.")
+    st.markdown("**Le stade 3 représente une partie relativement faible des stades observés**, ce qui peut expliquer **un rendement moins important** pour cette année. Ce sont des prédictions avec plus de dates que pour les autres années, c'est pourquoi la répartition des stades diffère des années précemment étudiées.")
     
     
     # In[73]:
