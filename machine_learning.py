@@ -23,9 +23,15 @@ import zipfile
 from pathlib import Path
 from joblib import dump, load
 import joblib
+from skimage import io
+
+
 
 def machine_learning_function():    
-    st.set_option('deprecation.showPyplotGlobalUse', False)
+    #st.set_option('deprecation.showPyplotGlobalUse', False)
+    img = io.imread('Resources/machine-learning-tout-savoir-une.jpg')  
+    st.image(img, width=250)
+
     prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
     prod_vege_2018.iloc[:,1:] = prod_vege_2018.iloc[:,1:].astype(float)
     prod_vege_2018.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
