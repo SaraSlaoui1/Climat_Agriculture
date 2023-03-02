@@ -10,7 +10,7 @@ Created on Tue Jan 31 21:29:41 2023
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-plt.rcParams.update({'font.size': 22})
+#plt.rcParams.update({'font.size': 22})
 
 import streamlit as st
 st.set_page_config(page_title = 'Projet DS meteo agriculture', )
@@ -95,272 +95,46 @@ def analyse_agriculture_function():
     
     
     # In[6]:
-    
-    annee = st.selectbox('Années de productions agricoles',['2018-2019','2019-2020', '2020-2021'])
-    
-    
-    
-    # In[31]:
-    
-    
-    "On constate que la variable 'betteraves industrielles' ne montre que des chiffres nuls pour les rendements et productions. Lors du nettoyage des données, les valeurs manquantes ont été remplacées par 0. C'est donc pour cette raison que nous n'avons que des 0"
-    
-    
-    # In[8]:
-    
-    
-    "Nous allons donc remplacer ces 0 par des valeurs se basant sur l'année de 2019 et de l'écart moyen entre 2018 et 2019."
-    
-    
-    # In[9]:
-    
-    
-    moyenne_2019 = prod_vege_2019.iloc[:,2:].drop(prod_vege_2019.index[5]).mean()
-    moyenne_2018 = prod_vege_2018.iloc[:,2:].drop(prod_vege_2018.index[5]).mean()
-    ecart_production_2018_2019 = (moyenne_2019 - moyenne_2018) / moyenne_2019
-    prod_vege_2018.iloc[5,2:] = prod_vege_2018.iloc[5,2:].replace([prod_vege_2018.iloc[5,2:].values], [np.array(prod_vege_2019.iloc[5,2:] - (moyenne_2019 *ecart_production_2018_2019))])
-    
-    
-    # In[10]:
-    
-    if annee == '2018-2019':
-        fig, ax = plt.subplots(13, figsize=(30,40))
+    data_dict = {"2018-2019": (prod_vege_2018, prod_vege_2019),
+                 "2019-2020": (prod_vege_2019, prod_vege_2020),
+                 "2020-2021": (prod_vege_2020, prod_vege_2021)}
+    barWidth = 0.4
         
-        barWidth = 0.4
-        x1 = np.arange(len(prod_vege_2018[('','Cultures')]))
-        x2 = x1 + 0.4
-        ax[0].bar(x1, prod_vege_2018.loc[:,('France métropolitaine', 'Production(1000 t)')], width = barWidth, label = 'France 2018')
-        ax[0].bar(x2, prod_vege_2019.loc[:,('France métropolitaine', 'Production(1000 t)')],width = barWidth, label = 'France 2019')
-        ax[0].set_title('Productions grandes cultures 2018 et 2019 France métropolitaine', fontsize = 40)
-        ax[0].set_xticks([])
-        ax[0].legend();
+        # Define the text content for each graph
+    text_dict = {
+             "2018-2019": "_Observations : Légère augmentation globale des différentes cultures sauf maïs._",
+             "2019-2020": "_Observations : Baisse globale des productions particulièrement des betteraves industrielles en Ile de France. Seule exception : augmentation de la production de maïs au Pays-de-la-Loire et Bretagne._",
+            "2020-2021": "_Observations : Légère augmentation globale des productions, plus marquée pour la production de maïs en Bretagne._",
+            }
         
-        ax[1].bar(x1, prod_vege_2018.loc[:,('Occitanie','Production(1000 t)') ], width = barWidth, label = 'Occitanie 2018') 
-        ax[1].bar(x2,prod_vege_2019.loc[:,('Occitanie', 'Production(1000 t)')], width = barWidth, label = 'Occitanie 2019') 
-        ax[1].set_xticks([])
-        ax[1].legend();
+        # Create the select boxes for the region and year range
+    regions = ["France métropolitaine", "Occitanie", "Auvergne-Rhône-Alpes", "Provence-Alpes-Côte-d'Azur", 
+                   "Bretagne", "Hauts de France", "Ile-de-France", "Pays-de-la-Loire", "Nouvelle-Aquitaine", 
+                   "Centre-Val de Loire", "Grand Est", "Normandie", "Bourgogne-Franche-Comté"]
+    region = st.selectbox("Région", regions)
+    year_range = st.selectbox("Années", list(data_dict.keys()))
         
-        ax[2].bar(x1, prod_vege_2018.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2018') 
-        ax[2].bar(x2,prod_vege_2019.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2019') 
-        ax[2].set_xticks([])
-        ax[2].legend();
+        # Get the data for the selected year range
+    data = data_dict[year_range]
         
-        ax[3].bar(x1, prod_vege_2018.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2018") 
-        ax[3].bar(x2,prod_vege_2019.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2019")
-        ax[3].set_xticks([])
-        ax[3].legend();
+        # Set the x-axis labels and positions
+    x = np.arange(len(data[0][('','Cultures')]))
         
-        ax[4].bar(x1, prod_vege_2018.loc[:,("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2018") 
-        ax[4].bar(x2,prod_vege_2019.loc[:, ("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2019")
-        ax[4].set_xticks([])
-        ax[4].legend();
+        # Create the bar chart
+    fig, ax = plt.subplots(figsize=(20, 10))
+    ax.bar(x, data[0].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[0]}-{year_range.split("-")[1]}')
+    ax.bar(x + barWidth, data[1].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[1]}-{year_range.split("-")[1]}')
+    ax.set_title(f'Productions grandes cultures en 1000T')
+    ax.legend()
+    plt.xticks(x + barWidth/2, data[0][('', 'Cultures')].unique(), rotation=90)
         
-        ax[5].bar(x1, prod_vege_2018.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2018") 
-        ax[5].bar(x2,prod_vege_2019.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2019")
-        ax[5].set_xticks([])
-        ax[5].legend();
+        # Get the text content for the selected graph
+    text = text_dict.get((year_range), "")
         
-        ax[6].bar(x1, prod_vege_2018.loc[:,("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2018") 
-        ax[6].bar(x2,prod_vege_2019.loc[:, ("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2019")
-        ax[6].set_xticks([])
-        ax[6].legend();
+        # Display the chart with the markdown content
+    st.markdown(text)
+    st.pyplot(fig)
         
-        
-        ax[7].bar(x1, prod_vege_2018.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2018") 
-        ax[7].bar(x2,prod_vege_2019.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2019")
-        ax[7].set_xticks([])
-        ax[7].legend();
-        
-        ax[8].bar(x1, prod_vege_2018.loc[:, ("Nouvelle-Aquitaine",'Production(1000 t)') ], width = barWidth, label = "Nouvelle-Aquitaine 2018") 
-        ax[8].bar(x2,prod_vege_2019.loc[:,("Nouvelle-Aquitaine",'Production(1000 t)')], width = barWidth, label = "Nouvelle-Aquitaine 2019")
-        ax[8].set_xticks([])
-        ax[8].legend();
-        
-        ax[9].bar(x1, prod_vege_2018.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2018") 
-        ax[9].bar(x2,prod_vege_2019.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2019")
-        ax[9].set_xticks([])
-        ax[9].legend();
-        
-        ax[10].bar(x1, prod_vege_2018.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2018") 
-        ax[10].bar(x2,prod_vege_2019.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2019")
-        ax[10].set_xticks([])
-        ax[10].legend();
-        
-        ax[11].bar(x1, prod_vege_2018.loc[:, ("Centre-Val de Loire", 'Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2018") 
-        ax[11].bar(x2,prod_vege_2019.loc[:, ("Centre-Val de Loire", 'Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2019")
-        ax[11].set_xticks([])
-        ax[11].legend();
-        
-        ax[12].bar(x1, prod_vege_2018.loc[:,("Bourgogne-Franche-Comté",'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2018") 
-        ax[12].bar(x2,prod_vege_2019.loc[:,("Bourgogne-Franche-Comté",'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2019")
-        plt.xticks(np.arange(len(prod_vege_2018[('','Cultures')])), prod_vege_2018[('','Cultures')].unique(), rotation = 90)
-        xticks = plt.gca().get_xticklabels()
-        plt.setp(xticks, fontsize=25)
-        
-        ax[12].legend();
-        st.pyplot(clear_figure = True)
-        st.markdown('_Observations : Légère augmentation globale des différentes cultures sauf maïs._')
-    
-    if annee == '2019-2020':
-    
-        fig, ax = plt.subplots(13, figsize=(30,40))
-        barWidth = 0.4
-        x1 = np.arange(len(prod_vege_2020[('','Cultures')]))
-        x2 = x1 + 0.4
-        ax[0].bar(x1, prod_vege_2019.loc[:,('France métropolitaine', 'Production(1000 t)')], width = barWidth, label = 'France 2019')
-        ax[0].bar(x2, prod_vege_2020.loc[:,('France métropolitaine', 'Production(1000 t)')],width = barWidth, label = 'France 2020')
-        ax[0].set_title('Productions grandes cultures 2019 et 2020 France métropolitaine', fontsize = 40)
-        ax[0].set_xticks([])
-        ax[0].legend();
-        
-        ax[1].bar(x1, prod_vege_2019.loc[:,('Occitanie','Production(1000 t)') ], width = barWidth, label = 'Occitanie 2019') 
-        ax[1].bar(x2,prod_vege_2020.loc[:,('Occitanie', 'Production(1000 t)')], width = barWidth, label = 'Occitanie 2020') 
-        ax[1].set_xticks([])
-        ax[1].legend();
-        
-        ax[2].bar(x1, prod_vege_2019.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2019') 
-        ax[2].bar(x2,prod_vege_2020.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2020') 
-        ax[2].set_xticks([])
-        ax[2].legend();
-        
-        ax[3].bar(x1, prod_vege_2019.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2019") 
-        ax[3].bar(x2,prod_vege_2020.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2020")
-        ax[3].set_xticks([])
-        ax[3].legend();
-        
-        ax[4].bar(x1, prod_vege_2019.loc[:,("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2019") 
-        ax[4].bar(x2,prod_vege_2020.loc[:, ("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2020")
-        ax[4].set_xticks([])
-        ax[4].legend();
-        
-        ax[5].bar(x1, prod_vege_2019.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2019") 
-        ax[5].bar(x2,prod_vege_2020.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2020")
-        ax[5].set_xticks([])
-        ax[5].legend();
-        
-        ax[6].bar(x1, prod_vege_2019.loc[:,("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2019") 
-        ax[6].bar(x2,prod_vege_2020.loc[:, ("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2020")
-        ax[6].set_xticks([])
-        ax[6].legend();
-        
-        ax[7].bar(x1, prod_vege_2019.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2019") 
-        ax[7].bar(x2,prod_vege_2020.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2020")
-        ax[7].set_xticks([])
-        ax[7].legend();
-        
-        ax[8].bar(x1, prod_vege_2019.loc[:, ("Nouvelle-Aquitaine",'Production(1000 t)') ], width = barWidth, label = "Nouvelle-Aquitaine 2019") 
-        ax[8].bar(x2,prod_vege_2020.loc[:,("Nouvelle-Aquitaine",'Production(1000 t)')], width = barWidth, label = "Nouvelle-Aquitaine 2020")
-        ax[8].set_xticks([])
-        ax[8].legend();
-        
-        ax[9].bar(x1, prod_vege_2019.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2019") 
-        ax[9].bar(x2,prod_vege_2020.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2020")
-        ax[9].set_xticks([])
-        ax[9].legend();
-        
-        ax[10].bar(x1, prod_vege_2019.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2019") 
-        ax[10].bar(x2,prod_vege_2020.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2020")
-        ax[10].set_xticks([])
-        ax[10].legend();
-        
-        ax[11].bar(x1, prod_vege_2019.loc[:, ("Centre-Val de Loire", 'Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2019") 
-        ax[11].bar(x2,prod_vege_2020.loc[:, ("Centre-Val de Loire", 'Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2020")
-        ax[11].set_xticks([])
-        ax[11].legend();
-        
-        ax[12].bar(x1, prod_vege_2019.loc[:,("Bourgogne-Franche-Comté",'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2019") 
-        ax[12].bar(x2,prod_vege_2020.loc[:,("Bourgogne-Franche-Comté",'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2020")
-        plt.xticks(np.arange(len(prod_vege_2020[('','Cultures')])), prod_vege_2020[('','Cultures')].unique(), rotation = 90);
-        xticks = plt.gca().get_xticklabels()
-        plt.setp(xticks, fontsize=25)
-        ax[12].legend();
-        st.pyplot()
-        
-    
-        st.markdown('_Observations : Baisse globale des productions particulièrement des betteraves industrielles en Ile de France. Seule exception : augmentation de la production de maïs au Pays-de-la-Loire et Bretagne._')
-    
-    
-    # In[13]:
-    if annee == '2020-2021':
-    
-        fig, ax = plt.subplots(13, figsize=(30,40))
-        barWidth = 0.4
-        x1 = np.arange(len(prod_vege_2020[('','Cultures')]))
-        x2 = np.arange(len(prod_vege_2021[('','Cultures')])) + 0.4
-        ax[0].bar(x1, prod_vege_2020.loc[:,('France métropolitaine', 'Production(1000 t)')], width = barWidth, label = 'France 2020')
-        ax[0].bar(x2, prod_vege_2021.loc[:,('France métropolitaine', 'Production(1000 t)')],width = barWidth, label = 'France 2021')
-        ax[0].set_title('Productions grandes cultures 2020 et 2021 France métropolitaine', fontsize = 40)
-        ax[0].set_xticks([])
-        ax[0].legend();
-        
-        ax[1].bar(x1, prod_vege_2020.loc[:,('Occitanie','Production(1000 t)') ], width = barWidth, label = 'Occitanie 2020') 
-        ax[1].bar(x2,prod_vege_2021.loc[:,('Occitanie', 'Production(1000 t)')], width = barWidth, label = 'Occitanie 2021') 
-        ax[1].set_xticks([])
-        ax[1].legend();
-        
-        ax[2].bar(x1, prod_vege_2020.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2020') 
-        ax[2].bar(x2,prod_vege_2021.loc[:,('Auvergne-Rhône-Alpes', 'Production(1000 t)')], width = barWidth, label = 'Auvergne-Rhône-Alpes 2021') 
-        ax[2].set_xticks([])
-        ax[2].legend();
-        
-        ax[3].bar(x1, prod_vege_2020.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2020") 
-        ax[3].bar(x2,prod_vege_2021.loc[:,("Provence-Alpes-Côte-d'Azur",'Production(1000 t)')], width = barWidth, label = "PACA 2021")
-        ax[3].set_xticks([])
-        ax[3].legend();
-        
-        ax[4].bar(x1, prod_vege_2020.loc[:,("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2020") 
-        ax[4].bar(x2,prod_vege_2021.loc[:, ("Bretagne", 'Production(1000 t)')], width = barWidth, label = "Bretagne 2021")
-        ax[4].set_xticks([])
-        ax[4].legend();
-        
-        ax[5].bar(x1, prod_vege_2020.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2020") 
-        ax[5].bar(x2,prod_vege_2021.loc[:, ("Hauts de France", 'Production(1000 t)')], width = barWidth, label = "Hauts-de-France 2021")
-        ax[5].set_xticks([])
-        ax[5].legend();
-        
-        ax[6].bar(x1, prod_vege_2020.loc[:,("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2020") 
-        ax[6].bar(x2,prod_vege_2021.loc[:, ("Ile-de-France", 'Production(1000 t)')], width = barWidth, label = "Ile-de-France 2021")
-        ax[6].set_xticks([])
-        ax[6].legend();
-        
-        ax[7].bar(x1, prod_vege_2020.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2020") 
-        ax[7].bar(x2,prod_vege_2021.loc[:,("Pays-de-la-Loire", 'Production(1000 t)')], width = barWidth, label = "Pays-de-la-Loire 2021")
-        ax[7].set_xticks([])
-        ax[7].legend();
-        
-        ax[8].bar(x1, prod_vege_2020.loc[:, ("Nouvelle-Aquitaine",'Production(1000 t)') ], width = barWidth, label = "Nouvelle-Aquitaine 2020") 
-        ax[8].bar(x2,prod_vege_2021.loc[:,("Nouvelle-Aquitaine",'Production(1000 t)')], width = barWidth, label = "Nouvelle-Aquitaine 2021")
-        ax[8].set_xticks([])
-        ax[8].legend();
-        
-        ax[9].bar(x1, prod_vege_2020.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2020") 
-        ax[9].bar(x2,prod_vege_2021.loc[:, ("Grand Est", 'Production(1000 t)')], width = barWidth, label = "Grand-Est 2021")
-        ax[9].set_xticks([])
-        ax[9].legend();
-        
-        ax[10].bar(x1, prod_vege_2020.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2020") 
-        ax[10].bar(x2,prod_vege_2021.loc[:,("Normandie",'Production(1000 t)')], width = barWidth, label = "Normandie 2021")
-        ax[10].set_xticks([])
-        ax[10].legend();
-        
-        ax[11].bar(x1, prod_vege_2020.loc[:, ('Centre-Val de Loire','Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2020") 
-        ax[11].bar(x2,prod_vege_2021.loc[:, ('Centre-Val de Loire','Production(1000 t)')], width = barWidth, label = "Centre-Val de Loire 2021")
-        ax[11].set_xticks([])
-        ax[11].legend();
-        
-        ax[12].bar(x1, prod_vege_2020.loc[:,("Bourgogne-Franche-Comté",'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2020") 
-        ax[12].bar(x2,prod_vege_2021.loc[:,('Bourgogne-Franche-Comté',  'Production(1000 t)')], width = barWidth, label = "Bourgogne-Franche-Comté 2021")
-        plt.xticks(np.arange(len(prod_vege_2021[('','Cultures')])), prod_vege_2021[('','Cultures')].unique(), rotation = 90);
-        xticks = plt.gca().get_xticklabels()
-        plt.setp(xticks, fontsize=25)
-        ax[12].legend();
-        
-        st.pyplot(clear_figure = True)
-    
-    
-    
-        st.markdown('_Observations : Légère augmentation globale des productions, plus marquée pour la production de maïs en Bretagne._')
-    
     
     # In[16]:
     
@@ -503,6 +277,13 @@ def analyse_agriculture_function():
     # In[21]:
     
     
+
+    
+
+
+
+
+
     
     
     # In[4]:
