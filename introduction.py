@@ -5,8 +5,13 @@ Created on Fri Feb  3 22:19:14 2023
 @author: Sara
 """
 import streamlit as st
+from skimage import io
+import matplotlib.pyplot as plt
 
 def intro_function():
+    img = io.imread('Resources/Frame-144-min-640x514.jpg')  
+    st.image(img, width=250)
+
     st.header('Introduction')
     st.markdown("Etant sensible à la cause écologique et très à l'écoute de l'actualité, j'ai voulu réaliser ce projet pour appliquer les connaissances acquises lors de la formation et en apprendre d'avantage sur l'agriculture, ses caractéristiques et l'impact potentiel que le climat pourrait avoir sur celle-ci. Tout ce projet a été réalisé à partir de données trouvées en libre accès sur internet, je mets à disposition mes sources dans la page _Sources_ avec liens de téléchargement et/ou site internet correspondants.")
     

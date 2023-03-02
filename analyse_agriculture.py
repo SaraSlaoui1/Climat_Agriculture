@@ -44,7 +44,6 @@ def analyse_agriculture_function():
     prod_vege_2019.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2019.iloc[:,1:] = prod_vege_2019.iloc[:,1:].round(2)
     
-    prod_vege_2019.info()
     
     prod_vege_2019.fillna(0, inplace=True)
     prod_vege_2019 = prod_vege_2019.sort_values(by=('', 'Cultures'))
@@ -64,7 +63,6 @@ def analyse_agriculture_function():
     prod_vege_2020.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2020.iloc[:,1:] = prod_vege_2020.iloc[:,1:].round(2)
     
-    prod_vege_2020.info()
     
     prod_vege_2020.fillna(0, inplace=True)
     
@@ -84,7 +82,6 @@ def analyse_agriculture_function():
     prod_vege_2021.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2021.iloc[:,1:] = prod_vege_2021.iloc[:,1:].round(2)
     
-    prod_vege_2021.info()
     
     prod_vege_2021.fillna(0, inplace=True)
     
@@ -387,7 +384,6 @@ def analyse_agriculture_function():
     moyenne_2019 = prod_vege_2019.iloc[:, prod_vege_2019.columns.get_level_values(1)=='Production(1000 t)'].mean()
     
     ecart_production_2018_2019 = pd.DataFrame((moyenne_2019 - moyenne_2018) / moyenne_2019, columns = ['ecart_production_2018_2019'])
-    #ecart_production_2018_2019
     
     
     # In[21]:
@@ -395,7 +391,6 @@ def analyse_agriculture_function():
     
     moyenne_2020 = prod_vege_2020.iloc[:, prod_vege_2020.columns.get_level_values(1)=='Production(1000 t)'].mean()
     ecart_production_2019_2020 = pd.DataFrame((moyenne_2020 - moyenne_2019) / moyenne_2020, columns = ['ecart_production_2019_2020'])
-    #ecart_production_2019_2020
     
     
     # In[22]:
@@ -403,7 +398,6 @@ def analyse_agriculture_function():
     
     moyenne_2021 = prod_vege_2021.iloc[:, prod_vege_2021.columns.get_level_values(1)=='Production(1000 t)'].mean()
     ecart_production_2020_2021 = pd.DataFrame((moyenne_2021 - moyenne_2020) / moyenne_2021, columns = ['ecart_production_2020_2021'])
-    #ecart_production_2020_2021
     
     
     # In[23]:
@@ -509,7 +503,6 @@ def analyse_agriculture_function():
     # In[21]:
     
     
-    #soup.findAll("div") 
     
     
     # In[4]:

@@ -46,7 +46,6 @@ def machine_learning_function():
     prod_vege_2019.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2019.iloc[:,1:] = prod_vege_2019.iloc[:,1:].round(2)
     
-    prod_vege_2019.info()
     
     prod_vege_2019.fillna(0, inplace=True)
     prod_vege_2019 = prod_vege_2019.sort_values(by=('', 'Cultures'))
@@ -60,13 +59,11 @@ def machine_learning_function():
     
     prod_vege_2020 = pd.read_csv("Resources/2020_donneesgrandescultures.csv", sep=';', header=[0,1])
     
-    prod_vege_2020.head()
     
     prod_vege_2020.iloc[:,1:] = prod_vege_2020.iloc[:,1:].astype(float)
     prod_vege_2020.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2020.iloc[:,1:] = prod_vege_2020.iloc[:,1:].round(2)
     
-    prod_vege_2020.info()
     
     prod_vege_2020.fillna(0, inplace=True)
     
@@ -86,7 +83,6 @@ def machine_learning_function():
     prod_vege_2021.rename({'Unnamed: 0_level_0':''}, axis=1, inplace = True)
     prod_vege_2021.iloc[:,1:] = prod_vege_2021.iloc[:,1:].round(2)
     
-    prod_vege_2021.info()
     
     prod_vege_2021.fillna(0, inplace=True)
     
@@ -122,7 +118,6 @@ def machine_learning_function():
     moyenne_2019 = prod_vege_2019.iloc[:, prod_vege_2019.columns.get_level_values(1)=='Production(1000 t)'].mean()
     
     ecart_production_2018_2019 = pd.DataFrame((moyenne_2019 - moyenne_2018) / moyenne_2019, columns = ['ecart_production_2018_2019'])
-    #ecart_production_2018_2019
     
     
     # In[21]:
@@ -130,7 +125,6 @@ def machine_learning_function():
     
     moyenne_2020 = prod_vege_2020.iloc[:, prod_vege_2020.columns.get_level_values(1)=='Production(1000 t)'].mean()
     ecart_production_2019_2020 = pd.DataFrame((moyenne_2020 - moyenne_2019) / moyenne_2020, columns = ['ecart_production_2019_2020'])
-    #ecart_production_2019_2020
     
     
     # In[22]:
@@ -138,7 +132,6 @@ def machine_learning_function():
     
     moyenne_2021 = prod_vege_2021.iloc[:, prod_vege_2021.columns.get_level_values(1)=='Production(1000 t)'].mean()
     ecart_production_2020_2021 = pd.DataFrame((moyenne_2021 - moyenne_2020) / moyenne_2021, columns = ['ecart_production_2020_2021'])
-    #ecart_production_2020_2021
     
     
     # In[23]:
@@ -485,7 +478,6 @@ def machine_learning_function():
     # In[462]:
     
     
-    train_data_meteo.head()
     
     
    
@@ -518,7 +510,6 @@ def machine_learning_function():
     # In[468]:
     
     
-    train_data.duplicated().sum()
     
     
     # In[469]:
@@ -641,7 +632,6 @@ def machine_learning_function():
     # In[482]:
     
     
-    #train_data.columns
     
     
     # In[483]:
@@ -654,7 +644,6 @@ def machine_learning_function():
     # In[484]:
     
     
-    data.head()
     
     
     # In[485]:
@@ -667,7 +656,6 @@ def machine_learning_function():
     # In[486]:
     
     
-    #test_2021.shape
     
     
     # In[487]:
@@ -685,7 +673,6 @@ def machine_learning_function():
     # In[489]:
     
     
-    test_2021.head()
     
     
     # In[490]:
@@ -718,13 +705,11 @@ def machine_learning_function():
     # In[494]:
     
     
-    test_2021.head()
     
     
     # In[495]:
     
     
-    #test_2021.shape
     
     
     # In[496]:
@@ -763,23 +748,6 @@ def machine_learning_function():
     test_2021_scaled = scaler.transform(test_2021)
 
     
-    # In[500]:
-    
-    
-    #param_grid = {'n_estimators': [10, 50, 100],
-    #              'max_depth': [5, 10, 20],
-     #             'min_samples_split': [2, 5, 10]
-        #          }
-    #rf = RandomForestClassifier()
-    
-    #grid_search = GridSearchCV(rf, param_grid, cv=7, scoring='accuracy')
-    
-    #grid_search.fit(X_train_scaled, y_train)
-    
-    #"Best parameters RF: {}".format(grid_search.best_params_)
-    #"Best score RF: {:.2f}".format(grid_search.best_score_)
-    #test_2021_scaled = scaler.transform(test_2021)
-
     
     # In[501]:
     
@@ -803,16 +771,7 @@ def machine_learning_function():
         
         
         # In[503]:
-        
-        
-        #features = data.columns
-        #features_importance = {}
-        #sorted_features = {}
-        #for x,j in zip(features, rf.feature_importances_):
-         #   features_importance[x] = j
-        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        #print(sorted_features[:8])
-        
+  
         
         st.write(f'precision score RF : {precision_score(y_pred_rf, y_test, average = "weighted").round(3)}')
         
@@ -820,7 +779,6 @@ def machine_learning_function():
         # In[506]:
         
         
-        #test_2021_scaled = scaler.transform(test_2021)
         
         
         # In[507]:
@@ -852,15 +810,7 @@ def machine_learning_function():
         
         # In[510]:
         
-        
-        #features = data.columns
-        #features_importance = {}
-        #sorted_features = {}
-        #for x,j in zip(features, gb.feature_importances_):
-         #   features_importance[x] = j
-        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        #print(sorted_features[:8])
-        
+      
         
         # In[511]:
         
@@ -878,19 +828,6 @@ def machine_learning_function():
     # In[513]:
     if alg == 'Decision Tree':
     
-        #clf = DecisionTreeClassifier()
-        #param_grid = {'max_depth': range(1,10),
-         #             'min_samples_split': [2, 3, 4, 5, 6, 7],
-          #            'criterion': ['gini','entropy'],
-           #           }
-        
-        #grid_search = GridSearchCV(clf, param_grid, cv=8, scoring='accuracy')
-        
-        #grid_search.fit(X_train_scaled, y_train)
-        #print(grid_search.best_params_)
-        
-        #print(grid_search.best_score_)
-        #print(grid_search.best_estimator_)
         
         
         # In[524]:
@@ -913,15 +850,7 @@ def machine_learning_function():
         
         # In[526]:
         
-        
-        #features = data.columns
-        #features_importance = {}
-        #sorted_features = {}
-        #for x,j in zip(features, clf_entr.feature_importances_):
-         #   features_importance[x] = j
-        #sorted_features = sorted(features_importance.items(), key=lambda x:x[1], reverse=True) 
-        #print(sorted_features[:8])
-        
+   
         
         # In[527]:
         
@@ -991,7 +920,6 @@ def machine_learning_function():
     # In[531]:
     
     
-    test_2021.head()
     
     
     # In[532]:
@@ -1016,7 +944,6 @@ def machine_learning_function():
     # In[535]:
     
     
-    pheno_meteo.head()
     
     
   
@@ -1086,7 +1013,6 @@ def machine_learning_function():
     # In[84]:
     
     
-    #texte2
     
     
     # In[80]:
@@ -1096,7 +1022,6 @@ def machine_learning_function():
     
     pred_giec_meteo = str(pred_giec_meteo)
     
-    pred_giec_meteo
     
     import re
     pred_giec_meteo = re.sub(r"\\", "", pred_giec_meteo)
@@ -1114,7 +1039,6 @@ def machine_learning_function():
     # In[236]:
     
     
-    pheno_meteo.head()
     
     
     # In[237]:
@@ -1144,7 +1068,6 @@ def machine_learning_function():
     # In[312]:
     
     
-    pheno_meteo_pred_train.head()
     
     
     # In[313]:
@@ -1163,7 +1086,6 @@ def machine_learning_function():
     # In[314]:
     
     
-    pheno_meteo_pred_train.head()
     
     pheno_meteo_pred_train.sort_index(axis=1, inplace=True)
     # In[315]:
@@ -1198,7 +1120,6 @@ def machine_learning_function():
     # In[319]:
     
     
-    pheno_meteo_pred_train.head()
     
     
     # In[320]:
