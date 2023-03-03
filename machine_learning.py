@@ -510,7 +510,7 @@ def machine_learning_function():
     # In[467]:
     
     
-    train_data.drop(['site_latitude','site_longitude'], axis= 1, inplace = True)
+    train_data.drop(['site_latitude','site_longitude', 'Latitude','Longitude'], axis= 1, inplace = True)
     
     
     # In[468]:
@@ -655,7 +655,7 @@ def machine_learning_function():
     # In[485]:
     
     
-    test_2021 = meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2021].drop(['Pression au niveau mer','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures', 'Coordonnees','department (name)','department (code)','Altitude'], axis=1)
+    test_2021 = meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2021].drop(['Pression au niveau mer','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures', 'Coordonnees','department (name)','department (code)','Altitude', 'Latitude','Longitude'], axis=1)
     test_2021 = test_2021.loc[train_data_meteo['Température minimale sur 12 heures (°C)'].notna(), :]
     
     
@@ -673,7 +673,7 @@ def machine_learning_function():
     # In[488]:
     
     
-    test_2021['rolling_avg_temp'] = test_2021['Température (°C)'].rolling(window=5, min_periods=1).mean()
+   # test_2021['rolling_avg_temp'] = test_2021['Température (°C)'].rolling(window=5, min_periods=1).mean()
     
     
     # In[489]:
@@ -916,9 +916,11 @@ def machine_learning_function():
     # In[530]:
     clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
     clf_entr.fit(X_train_scaled, y_train)
+    joblib.dump(clf_entr,'dt_model.joblib')
 
+    loaded_dt = joblib.load('dt_model.joblib')
             
-    y_pred_2021 = clf_entr.predict(test_2021_scaled)
+    y_pred_2021 = loaded_dt.predict(test_2021_scaled)
 
     test_2021['phenological_main_event_code'] = y_pred_2021
     
@@ -1087,6 +1089,8 @@ def machine_learning_function():
     pheno_meteo_pred_train.loc[(pheno_meteo_pred_train['month'] > 4) & (pheno_meteo_pred_train['month'] < 9),'Température maximale sur 12 heures (°C)'] += 5.1
     pheno_meteo_pred_train.loc[(pheno_meteo_pred_train['month'] <= 4) | (pheno_meteo_pred_train['month'] >= 9),'Température minimale du sol sur 12 heures (en °C)'] += 3.2
     pheno_meteo_pred_train.loc[(pheno_meteo_pred_train['month'] > 4) & (pheno_meteo_pred_train['month'] < 9),'Température minimale du sol sur 12 heures (en °C)'] += 5.1
+    pheno_meteo_pred_train.loc[(pheno_meteo_pred_train['month'] <= 4) | (pheno_meteo_pred_train['month'] >= 9),'rolling_avg_temp'] += 3.2
+    pheno_meteo_pred_train.loc[(pheno_meteo_pred_train['month'] > 4) & (pheno_meteo_pred_train['month'] < 9),'rolling_avg_temp'] += 5.1
     
     
     # In[314]:
