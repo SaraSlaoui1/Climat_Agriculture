@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 #plt.rcParams.update({'font.size': 22})
 
 import streamlit as st
-st.set_page_config(page_title = 'Projet DS meteo agriculture', )
+#st.set_page_config(page_title = 'Projet DS meteo agriculture', )
 st.set_option('deprecation.showPyplotGlobalUse', False)
 def analyse_agriculture_function():
     prod_vege_2018 = pd.read_csv("Resources/2018_donneesgrandescultures.csv", sep=';', header = [0,1])
@@ -93,7 +93,10 @@ def analyse_agriculture_function():
     prod_vege_2021['Année'] =prod_vege_2021['Année'].apply(lambda x: pd.to_datetime(str(x),format='%Y%'))
     
     
-    
+    moyenne_2019 = prod_vege_2019.iloc[:,2:].drop(prod_vege_2019.index[5]).mean()
+    moyenne_2018 = prod_vege_2018.iloc[:,2:].drop(prod_vege_2018.index[5]).mean()
+    ecart_production_2018_2019 = (moyenne_2019 - moyenne_2018) / moyenne_2019
+    prod_vege_2018.iloc[5,2:] = prod_vege_2018.iloc[5,2:].replace([prod_vege_2018.iloc[5,2:].values], [np.array(prod_vege_2019.iloc[5,2:] - (moyenne_2019 *ecart_production_2018_2019))])
     # In[6]:
     data_dict = {"2018-2019": (prod_vege_2018, prod_vege_2019),
                  "2019-2020": (prod_vege_2019, prod_vege_2020),
@@ -122,8 +125,8 @@ def analyse_agriculture_function():
         
         # Create the bar chart
     fig, ax = plt.subplots(figsize=(20, 10))
-    ax.bar(x, data[0].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[0]}-{year_range.split("-")[1]}')
-    ax.bar(x + barWidth, data[1].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[1]}-{year_range.split("-")[1]}')
+    ax.bar(x, data[0].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[0]}')
+    ax.bar(x + barWidth, data[1].loc[:, (region, 'Production(1000 t)')], width=barWidth,label=f'{year_range.split("-")[1]}')
     ax.set_title(f'Productions grandes cultures en 1000T')
     ax.legend()
     plt.xticks(x + barWidth/2, data[0][('', 'Cultures')].unique(), rotation=90)
