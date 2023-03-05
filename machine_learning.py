@@ -659,37 +659,29 @@ def machine_learning_function():
     test_2021 = test_2021.loc[train_data_meteo['Température minimale sur 12 heures (°C)'].notna(), :]
     
     
-    # In[486]:
-    
-    
-    
-    
-    # In[487]:
-    
-    
-    test_2021 = pd.concat([test_2021, pd.get_dummies(test_2021['nom'])], axis=1)
-    
-    
-    # In[488]:
-    
-    
-   # test_2021['rolling_avg_temp'] = test_2021['Température (°C)'].rolling(window=5, min_periods=1).mean()
-    
+    pheno_ble2 = pheno_ble[pheno_ble['year']==2018].sort_values(by='date').rename({'date':'Date'}, axis = 1).reset_index(drop=True)    
     
     # In[489]:
+    test_2021 = test_2021.sort_values(by=['Date','nom'])
+    test_2021 = test_2021.iloc[::2]
+    test_2021 = test_2021.iloc[::2]
+    test_2021 = test_2021.iloc[::2]
     
+    test_2021 = test_2021.sample(n=9393, random_state=42)
     
-    
+    test_2021 = test_2021.sort_values(by='Date').reset_index(drop=True)
     
     # In[490]:
     
     
-    test_2021 = test_2021.groupby(['Date','nom']).head(2)
-    
+    for i in range(len(test_2021)):
+        test_2021['Date'][i] = pd.to_datetime('2021-' + pheno_ble2['Date'].iloc[i].strftime('%m-%d'))
+    test_2021['Date'] = pd.to_datetime(test_2021['Date'])
     
     # In[491]:
     
-    
+    test_2021 = pd.concat([test_2021, pd.get_dummies(test_2021['nom'])], axis=1)
+
     test_2021.drop('nom', axis=1, inplace=True)
     
     
@@ -757,7 +749,41 @@ def machine_learning_function():
     
     # In[501]:
     
-    alg = st.selectbox('Algorithme de Classification', ['Random Forest','Gradient Boosting','Decision Tree','KNN'])
+    alg = st.selectbox('Algorithme de Classification', ['Decision Tree','Random Forest','Gradient Boosting','KNN'])
+    if alg == 'Decision Tree':
+    
+        
+        
+        # In[524]:
+        
+        clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
+        clf_entr.fit(X_train_scaled, y_train)
+        joblib.dump(clf_entr,'decision_tree_model.joblib')
+
+        loaded_clf_entr = joblib.load('decision_tree_model.joblib')
+
+        y_pred = loaded_clf_entr.predict(X_test_scaled)
+        st.write(pd.crosstab(y_pred, y_test))
+        
+        
+        # In[525]:
+        
+        
+        st.write(f'accuracy score DT :  {loaded_clf_entr.score(X_test_scaled, y_test).round(3)}')
+   
+        st.write(f'precision score DT : {precision_score(y_pred, y_test, average = "weighted").round(3)}')
+        
+        
+        # In[528]:
+        
+        
+        y_pred_2021 = loaded_clf_entr.predict(test_2021_scaled)
+        
+        
+        # In[529]:
+        
+        
+        st.write(f'prédictions 2021 DT : {np.unique(y_pred_2021)}')
     if alg == 'Random Forest':
         rf = RandomForestClassifier(max_depth =  10, min_samples_split = 10, n_estimators = 50)
         
@@ -832,48 +858,7 @@ def machine_learning_function():
         
         
     # In[513]:
-    if alg == 'Decision Tree':
     
-        
-        
-        # In[524]:
-        
-        clf_entr = DecisionTreeClassifier(criterion = 'entropy', max_depth = 9,min_samples_split = 7)
-        clf_entr.fit(X_train_scaled, y_train)
-        joblib.dump(clf_entr,'decision_tree_model.joblib')
-
-        loaded_clf_entr = joblib.load('decision_tree_model.joblib')
-
-        y_pred = loaded_clf_entr.predict(X_test_scaled)
-        st.write(pd.crosstab(y_pred, y_test))
-        
-        
-        # In[525]:
-        
-        
-        st.write(f'accuracy score DT :  {loaded_clf_entr.score(X_test_scaled, y_test).round(3)}')
-        
-        
-        # In[526]:
-        
-   
-        
-        # In[527]:
-        
-        
-        st.write(f'precision score DT : {precision_score(y_pred, y_test, average = "weighted").round(3)}')
-        
-        
-        # In[528]:
-        
-        
-        y_pred_2021 = loaded_clf_entr.predict(test_2021_scaled)
-        
-        
-        # In[529]:
-        
-        
-        st.write(f'prédictions 2021 DT : {np.unique(y_pred_2021)}')
     
     
     # In[520]:
@@ -985,7 +970,7 @@ def machine_learning_function():
     # In[308]:
     
     
-    st.markdown("**Le stade 3 représente une partie relativement faible des stades observés**, ce qui peut expliquer **un rendement moins important** pour cette année. Ce sont des prédictions avec plus de dates que pour les autres années, c'est pourquoi la répartition des stades diffère des années précemment étudiées.")
+    st.markdown("**Le stade 3 représente en moyenne environ 30% de la durée totale du cycle de croissance du végétal et son rendement est de 60 q/h. Des chiffres à peu près similaires à ce qu'on a pu observé pour les autres années.**")
     
     
     # In[73]:
