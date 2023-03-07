@@ -24,13 +24,11 @@ def analyse_meteo_function():
     # In[9]:
     
     
-    meteo_2018_2021.head()
     
     
     # In[10]:
     
     
-    meteo_2018_2021.info()
     
     
     # In[11]:
@@ -48,13 +46,10 @@ def analyse_meteo_function():
     # In[13]:
     
     
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Guyane'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Terres australes et antarctiques françaises'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Guadeloupe'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Saint-Pierre-et-Miquelon'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Mayotte'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'La Réunion'].index, inplace=True)
-    meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == 'Martinique'].index, inplace=True)
+    regions_to_remove = ['Guyane', 'Terres australes et antarctiques françaises', 'Guadeloupe', 'Saint-Pierre-et-Miquelon', 'Mayotte', 'La Réunion', 'Martinique']
+
+    for region in regions_to_remove:
+        meteo_2018_2021.drop(meteo_2018_2021[meteo_2018_2021['region (name)'] == region].index, inplace=True)
     
     
     # In[14]:
@@ -67,7 +62,6 @@ def analyse_meteo_function():
     # In[9]:
     
     
-    meteo_2018_2021.head()
     
     
     # In[15]:
@@ -79,7 +73,6 @@ def analyse_meteo_function():
     # In[16]:
     
     
-    meteo_2018_2021.head()
     
     
     # In[17]:
@@ -92,7 +85,6 @@ def analyse_meteo_function():
     # In[18]:
     
     
-    meteo_2018_2021.head()
     
     
     # In[19]:
@@ -104,7 +96,6 @@ def analyse_meteo_function():
     # In[20]:
     
     
-    meteo_2018_2021.info()
     
     
     # In[21]:
@@ -158,7 +149,6 @@ def analyse_meteo_function():
     # In[29]:
     
     
-    meteo_2018_2021.describe()
 
     shapefile = gpd.read_file("Resources/jsonvalidator.json")
     
@@ -268,8 +258,6 @@ def analyse_meteo_function():
         if 'Map' in typegraph:
             fig, ax = plt.subplots(2,2, figsize=(20, 20))
             
-            fig, ax = plt.subplots(2,2, figsize=(20, 20))
-
             merged1.plot('Humidité', cmap='YlGnBu', ax=ax[0,0], legend=True)
             ax[0,0].set_axis_off()
             ax[0,0].set_title("Distribution spatiale de l'humidité moyenne \n \n 2018")
