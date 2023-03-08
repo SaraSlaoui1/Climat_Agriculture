@@ -972,7 +972,6 @@ def machine_learning_function():
     
     st.markdown("**Le stade 3 représente en moyenne environ 30% de la durée totale du cycle de croissance du végétal et son rendement est de 60 q/h. Des chiffres à peu près similaires à ce qu'on a pu observé pour les autres années.**")
     
-    
     # In[73]:
     st.header('Prédictions pour 2100')
     
@@ -1152,7 +1151,7 @@ def machine_learning_function():
     # In[251]:
     
     
-    st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le rendement aura tendance à être plus faible en 2100.")
+    st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le stade sera plus court, le rendement aura donc tendance à être plus faible en 2100.")
     
 
     # In[252]:

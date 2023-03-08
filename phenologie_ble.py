@@ -191,7 +191,7 @@ def phenologie_ble_function():
     # In[442]:
     
     
-    plt.figure(figsize=(20,20))
+    plt.figure(figsize=(40,40))
     plt.imshow(img)
     plt.xticks([])
     plt.yticks([])
@@ -201,7 +201,7 @@ def phenologie_ble_function():
     # In[443]:
     
     
-    st.markdown("Selon le cours normal du cycle, on devrait voir le début de vie de la plante aux alentours d'octobre, novembre, le tallage (_Le tallage est un phénomène naturel qui permet d'obtenir plusieurs tiges à partir d'une seule._) en hiver, la montaison début printemps et le remplissage des grains en juin, qui s'en suit de la récolte en juillet. Analysons les données présentes afin de déterminer si c'est bien le calendrier suivi pour les années 2018, 2019, 2020 et 2021.")
+    st.markdown("Selon le cours normal du cycle, le semis est en octobre (stade 0), la germination de novembre à décembre/janvier (stade 1), le tallage (stade 2) de décembre/janvier à février, la montaison (stade 3) de février à mai/juin, l'épiaison et floraison (stade 5 et 6) de mai à juin, le remplissage des grains (stade 7) en juin et la maturité en juillet. Analysons les données présentes afin de déterminer si c'est bien le calendrier suivi pour les années 2018, 2019, 2020 et 2021. Analysons les données présentes afin de déterminer si c'est bien le calendrier suivi pour les années 2018, 2019, 2020 et 2021.")
     
     
  
@@ -210,7 +210,6 @@ def phenologie_ble_function():
     annee = st.selectbox("Stades de croissance du blé selon leur mois d'apparition",['2018','2019','2020','2021'])
     import datetime as dt
     import matplotlib.cm as cm
-
 
     if annee == '2018':
         fig, ax = plt.subplots(1, figsize=(10,8))
@@ -235,7 +234,7 @@ def phenologie_ble_function():
         st.pyplot()
 
 
-        st.markdown("_Stades 0, 1 et 2 début à la mi-septembre, octobre et fin octobre pour la récolte de 2019. Pour la récolte de 2018 les stades 1 et 2 se terminent respectivement en avril (à part quelques exceptions en mai) et en mai, avec donc environ 3 mois de retard sur le calendrier décrit plus haut. Le stade 3 débute en février et finit en juin. Les stades 5 et 6 commencent fin avril et finissent fin juin et juillet.Les stades 7 et 8 débutent en juin et se terminent en juillet, donc avec un mois d'avance par rapport au calendrier typique._")
+        st.markdown("_Stades 1 et 2 trois mois plus longs que la moyenne pour la récolte de 2018. En effet, le stade 1 devrait durer jusqu'à février (on observe ici avril voire mai si on inclut les potentiels outliers) et le stade 2 jusqu'à février ( on observe ici mai)_")
 
     # In[80]:
     
@@ -268,7 +267,7 @@ def phenologie_ble_function():
         ax.legend(bbox_to_anchor=(1.35, 1))
         st.pyplot()
 
-        st.markdown("_Observations : Les stades 1 et 2 débutés en octobre et fin octobre / mi-novembre 2018 se terminent en avril et mai avec donc environ 3 mois de retard sur le calendrier. Le stade 3 débute en février et finit fin juin. Les stades débutent 5 et 6 fin avril / mai et finissent en juillet. Les stades 7 et 8 commencent en mai et juin et se terminent fin juillet, donc avec un mois d'avance par rapport au calendrier typique. Stades 0, 1 et 2 pour la récolte de 2020 commencent en octobre._")
+        st.markdown("_Observations : Mêmes observations que 2018 mais stade 3 légèrement plus long et stade 1 plus court._")
         
     
     # In[83]:
@@ -328,19 +327,6 @@ def phenologie_ble_function():
     # In[87]:
     
     
-    #pheno_ble[(pheno_ble['phenological_main_event_code']== 2) & (pheno_ble['grid_label'] == 'Pays de la Loire') & (pheno_ble['taxon']=='aestivum')].sort_values(by=['site_id', 'date'])
-    
-    
-    # In[88]:
-    
-    
-    #pheno_ble[pheno_ble['site_id']== 41812].sort_values(by=['phenological_main_event_code','date'])
-    
-    
-    # In[89]:
-    
-    #"Si nous prenons l'exemple du stade 2 en région Pays de la Loire pour le site 41812, nous observons que les dates vont du 23/11/2020 au 29/01/2021. Ce qui signifie que le stade 2 débute en novembre et finit en janvier. C'est pourquoi, nous observons sur les graphs que le stade 2 revient 2 fois dans l'année. Il en est de même pour d'autres sites et pour le stade de croissance 1."
-     
     
     # In[447]:
     
@@ -503,7 +489,7 @@ def phenologie_ble_function():
     # In[459]:
     
     
-    st.markdown("On constate, en observant le rendement moyen sur tout le territoire et la répartition des différents stades de croissance du blé qu'il est difficile de trouver une corrélation satisfaisante entre les deux. Le stade 8 qui annonce la récolte est proportionellement plus important en 2018 et 2020 bien que les rendements soient plus faibles qu'en 2019. C'est donc sur un autre critère que l'on doit s'orienter pour estimer le rendement de la culture par rapport aux stades phénologiques.")
+    st.markdown("On constate une répartition des stades inégale, c'est à dire que certains stades sont plus longs que d'autres.")
     
     
     # In[26]:
@@ -534,7 +520,7 @@ def phenologie_ble_function():
     # In[111]:
     
     
-    st.markdown("**Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains.** En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. **Cela correspond au stade 3 de croissance du blé.** Pour l'année 2019, on remarque que le stade 3 est majoritaire. C'est donc probablement une des raisons pour lesquelles le rendement est plus important.")
+    st.markdown("**Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains.** En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. **Cela correspond au stade 3 de croissance du blé.** Pour l'année 2019, on remarque que le stade 3 est majoritaire, donc plus long. C'est donc probablement une des raisons pour lesquelles le rendement est plus important. Le facteur défavorable est quant à lui une température inférieure à 4°C à partir du stade de montaison à 1cm (stade 30).")
     
     
     # In[112]:

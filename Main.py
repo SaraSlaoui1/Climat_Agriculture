@@ -35,10 +35,6 @@ st.cache()
 # Load image
 img = io.imread("Resources/futuristic-heat-absorber.jpg")
 
-# Display image in main Streamlit app
-#st.image(img, use_column_width=True)
-
-# Display image in Streamlit sidebar
 st.sidebar.image(img, caption='Heat Absorber', width=300)
 st.sidebar.write("Bâtiment imaginé avec image générée par une IA permettant d'absorber la chaleur sur les champs d'exploitations agricoles. Cette chaleur accumulée serait la source d'énergie alimentant les machines agricoles de l'exploitation.")
 
