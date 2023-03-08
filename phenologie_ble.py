@@ -234,7 +234,7 @@ def phenologie_ble_function():
         st.pyplot()
 
 
-        st.markdown("_Stades 1 et 2 trois mois plus longs que la moyenne pour la récolte de 2018. En effet, le stade 1 devrait durer jusqu'à février (on observe ici avril voire mai si on inclut les potentiels outliers) et le stade 2 jusqu'à février ( on observe ici mai)_")
+        st.markdown("_Stades 1 et 2 trois mois plus longs que la moyenne pour la récolte de 2018. En effet, le stade 1 devrait durer jusqu'à février (on observe ici avril voire mai si on inclut les potentiels outliers) et le stade 2 jusqu'à février ( on observe ici mai). Sinon, on observe globalement des débuts de stades légèrement précoces._")
 
     # In[80]:
     
@@ -520,7 +520,7 @@ def phenologie_ble_function():
     # In[111]:
     
     
-    st.markdown("**Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains.** En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. **Cela correspond au stade 3 de croissance du blé.** Pour l'année 2019, on remarque que le stade 3 est majoritaire, donc plus long. C'est donc probablement une des raisons pour lesquelles le rendement est plus important. Le facteur défavorable est quant à lui une température inférieure à 4°C à partir du stade de montaison à 1cm (stade 30).")
+    st.markdown("**Le facteur favorable à un bon rendement est une montaison longue qui permet d'augmenter le volume de grains.** En d'autres termes, on veut une plante qui produit beaucoup de grains pour assurer un bon rendement. **Cela correspond au stade 3 de croissance du blé.** Pour l'année 2019, on remarque que le stade 3 est majoritaire, donc plus long. C'est donc probablement une des raisons pour lesquelles le rendement est plus important.")
     
     
     # In[112]:
