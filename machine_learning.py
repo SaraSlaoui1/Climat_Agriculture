@@ -1153,10 +1153,43 @@ def machine_learning_function():
     
     st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le stade sera plus court, le rendement aura donc tendance à être plus faible en 2100.")
     
-
+    st.markdown("Je vais maintenant analyser les moyennes des variables températures et précipitations de 2018 à 2021 et 2100 pour les stades 1, 2 et 3.")
     # In[252]:
    
+         # Création subplot
+    fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(40,10))
+    
+    # Boucle sur les années 
+    for i, year in enumerate(range(2018, 2022)):
+        # Calcule des moyennes
+        means = pheno_meteo[(pheno_meteo['phenological_main_event_code'].isin([1,2,3])) & (pheno_meteo.date.dt.year == year)][['Précipitations dans les 24 dernières heures','Température (°C)', 'rolling_avg_temp','phenological_main_event_code']].groupby('phenological_main_event_code').mean()
+    
+        # Ajout plot à chaqu année
+        means.plot(kind='bar', rot=0, alpha=0.7, label=year, ax=axes[i])
+    
+        # Labels
+        axes[i].set_xlabel('Phenological Main Event Code', fontsize = 25)
+        axes[i].set_ylabel('Mean Value', fontsize = 25)
+        axes[i].set_title(year, fontsize = 25)
     
     
+    # Ajout 5éme colonne
+    means = pheno_meteo_pred_train[(pheno_meteo_pred_train['phenological_main_event_code'].isin([1,2,3]))][['Précipitations dans les 24 dernières heures','Température (°C)', 'rolling_avg_temp','phenological_main_event_code']].groupby('phenological_main_event_code').mean()
+    means.plot(kind='bar', rot=0, alpha=0.7, label='Prediction', ax=axes[4])
+    axes[4].set_xlabel('Phenological Main Event Code', fontsize = 25)
+    axes[4].set_ylabel('Mean Value', fontsize = 25)
+    axes[4].set_title('2100', fontsize = 25)
     
+    # Gérer les légendes
+    axes[0].legend(loc='upper left', bbox_to_anchor=(-1.8, 1), fontsize = 25)
+    for i in range(1,5):
+        axes[i].get_legend().remove()
     
+    # titre
+    fig.suptitle("Observation des moyennes des variables températures et précipitations pour les premiers stades de croissance", fontsize = 30
+    )
+    st.pyplot();
+    
+    st.markdown("On remarque que la valeur de la moyenne des précipitations pendant le stade 1 pour l'année 2019 est beaucoup plus élevée que pour les autres années. C'est donc un facteur potentiellement favorable à une montaison longue et à un meilleur rendement. En ce qui concerne les prédictions pour 2100 les précipitations ne semblent pas si différentes que pour les années précédentes, c'est donc les températures plus élevées qui déterminent un rendement plus faible.")
+        
+        
