@@ -353,7 +353,7 @@ def phenologie_ble_function():
     
     
     # In[3]:
-    st.header('Analyse des productions, surfaces et rendements agricoles de 2018 à 2021')
+    st.header('Analyse des rendements et stades phénologiques de 2018 à 2021')
     
     prod_vege_2019 = pd.read_csv("Resources/2019_donneesgrandescultures.csv", sep=';', header = [0,1])
     
