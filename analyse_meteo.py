@@ -137,7 +137,6 @@ def analyse_meteo_function():
     # In[27]:
     
     
-    "Nous allons à présent créer une nouvelle colonne de la moyenne des températures les 5 derniers jours. Elle nous sera utile pour les prédictions futures."
     
     
     # In[28]:
@@ -148,7 +147,7 @@ def analyse_meteo_function():
     
     # In[29]:
     
-    
+    st.markdown("En moyenne, l'année la plus froide fut 2021 et la plus chaude 2020. La plus pluvieuse 2018 et la plus sèche 2019.")
 
     shapefile = gpd.read_file("Resources/jsonvalidator.json")
     
