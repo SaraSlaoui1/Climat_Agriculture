@@ -9,7 +9,7 @@ from skimage import io
 import matplotlib.pyplot as plt
 
 def intro_function():
-    img = io.imread('Resources/Frame-144-min-640x514.jpg')  
+    img = io.imread('Resources/nature-friendly.png')  
     st.image(img, width=250)
 
     st.header('Introduction')
