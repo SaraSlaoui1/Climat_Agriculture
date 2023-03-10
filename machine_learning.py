@@ -536,89 +536,42 @@ def machine_learning_function():
         st.write(train_data.corr())
     
     
-    # In[472]:
-    
-    
-    
-    
-    
-    # In[473]:
-    
-    
     st.markdown('**Selon le tableau de corrélation, la variable météorologique la plus corrélée au stade de développement du blé est la température**')
-    
-    
     # In[474]:
-    st.markdown('Test Chi-2 pour déterminer la corrélation entre une variable catégorielle et une variable numérique continue')
+    st.markdown('Test ANOVA pour déterminer la corrélation entre une variable catégorielle et une variable numérique continue')
     variable = st.selectbox('Variable catégorielle',['Température (°C)','rolling_avg_temp','Précipitations dans les 24 dernières heures','Humidité'])
     if variable == 'Température (°C)':
-        from scipy.stats import chi2_contingency
-        st.write("Hypothèse H0 : il n'y a pas d'influence de la variable 'Température (°C)' sur les stades de croissance du blé 'phenological_main_event_code'")
-        
-        table = pd.crosstab(train_data['phenological_main_event_code'], train_data['Température (°C)'])
-        
-        chi2, p, dof, expected = chi2_contingency(table)
-        
-        st.write('chi2 = ',chi2) 
-        st.write('p = ', p)  
-        st.write('p-value inférieure à 0.05, donc H0 réfutée')
-        
-    
+        st.image('Resources/ANOVA temp.png')
     # In[475]:
     
     if variable == 'rolling_avg_temp' : 
-        from scipy.stats import chi2_contingency
-        st.write("Hypothèse H0 : il n'y a pas d'influence de la variable 'rolling_avg_temp' sur les stades de croissance du blé 'phenological_main_event_code'")
-        
-        table = pd.crosstab(train_data['phenological_main_event_code'], train_data['rolling_avg_temp'])
-        
-        chi2, p, dof, expected = chi2_contingency(table)
-        
-        st.write('chi2 = ',chi2) 
-        st.write('p = ', p)  
-        st.write('p-value inférieure à 0.05, donc H0 réfutée')
-    
+        st.image('Resources/ANOVA rolling_avg_temp.png')
+
     
     # In[476]:
     
     if variable == 'Précipitations dans les 24 dernières heures' :
-        st.write("Hypothèse H0 : il n'y a pas d'influence de la variable 'Précipitations dans les 24 dernières heures' sur les stades de croissance du blé 'phenological_main_event_code'")
-        
-        table = pd.crosstab(train_data['phenological_main_event_code'], train_data['Précipitations dans les 24 dernières heures'])
-        
-        chi2, p, dof, expected = chi2_contingency(table)
-        
-        st.write('chi2 = ',chi2) 
-        st.write('p = ', p)  
-        st.write("p-value inférieure à 0.05, donc H0 réfutée, la statistique chi-2 étant plus faible que pour le test avec les températures, on en déduit que cette variable joue moins d'importance")
-        
-        
+        st.image('Resources/ANOVA Precipitations.png')
+          
+                
     # In[477]:
     
     
     if variable == 'Humidité':
-        st.write("Hypothèse H0 : il n'y a pas d'influence de la variable 'Humidité' sur les stades de croissance du blé 'phenological_main_event_code'")
-        
-        table = pd.crosstab(train_data['phenological_main_event_code'], train_data['Humidité'])
-        
-        chi2, p, dof, expected = chi2_contingency(table)
-        
-        st.write('chi2 = ',chi2) 
-        st.write('p = ', p)  
-        st.write('p-value inférieure à 0.05, donc H0 réfutée')
-        "L'hypothèse est bien réfutée mais le résultat du test est nettement inférieur aux deux précédents, donc la variable a peu d'influence."
-        
-        
-    # In[478]:
-    
+        st.image('Resources/ANOVA Humidite.png')
+       
     
     train_data = pd.concat([pd.get_dummies(train_data.nom), train_data], axis =1)
     
     
     # In[479]:
     
-    
-    train_data.drop(['nom','Pression au niveau mer','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures'], axis=1, inplace = True)
+    st.markdown("Les variables météorologiques les plus corrélées sont la température et l'humidité")
+    train_data.drop(['nom','Précipitations dans la dernière heure',
+       'Précipitations dans les 3 dernières heures',
+       'Précipitations dans les 6 dernières heures',
+       'Précipitations dans les 12 dernières heures',
+       'Précipitations dans les 24 dernières heures','Pression au niveau mer','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures'], axis=1, inplace = True)
     
     
     # In[480]:
@@ -655,7 +608,11 @@ def machine_learning_function():
     # In[485]:
     
     
-    test_2021 = meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2021].drop(['Pression au niveau mer','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures', 'Coordonnees','department (name)','department (code)','Altitude', 'Latitude','Longitude'], axis=1)
+    test_2021 = meteo_2018_2021[meteo_2018_2021['Date'].dt.year == 2021].drop(['Pression au niveau mer','Précipitations dans la dernière heure',
+       'Précipitations dans les 3 dernières heures',
+       'Précipitations dans les 6 dernières heures',
+       'Précipitations dans les 12 dernières heures',
+       'Précipitations dans les 24 dernières heures','Variation de pression en 3 heures','Type de tendance barométrique','Direction du vent moyen 10 mn','Vitesse du vent moyen 10 mn', 'Point de rosée','Visibilité horizontale (en mètre)',"Nebulosité totale","Nébulosité  des nuages de l' étage inférieur","Hauteur de la base des nuages de l'étage inférieur",'Pression station','Variation de pression en 24 heures', 'Rafale sur les 10 dernières minutes','Rafales sur une période','Periode de mesure de la rafale','Etat du sol','Hauteur totale de la couche de neige, glace, autre au sol', 'Nébulosité couche nuageuse 1','Hauteur de base 1','Nébulosité couche nuageuse 2','Hauteur de base 2', 'Température','Température minimale sur 12 heures','Température maximale sur 12 heures','Température minimale du sol sur 12 heures', 'Coordonnees','department (name)','department (code)','Altitude', 'Latitude','Longitude'], axis=1)
     test_2021 = test_2021.loc[train_data_meteo['Température minimale sur 12 heures (°C)'].notna(), :]
     
     
@@ -1153,43 +1110,4 @@ def machine_learning_function():
     
     st.markdown("Comme démontré précedemment, le stade déterminant pour une bonne récolte est le stade de montaison à 1cm d'épi qui correspond au stade 3. On en compte moins en 2100 qu'en 2018. On peut donc supposer que selon ces prédictions, le stade sera plus court, le rendement aura donc tendance à être plus faible en 2100.")
     
-    st.markdown("Je vais maintenant analyser les moyennes des variables températures et précipitations de 2018 à 2021 et 2100 pour les stades 1, 2 et 3.")
-    # In[252]:
-   
-         # Création subplot
-    fig, axes = plt.subplots(nrows=1, ncols=5, figsize=(40,10))
     
-    # Boucle sur les années 
-    for i, year in enumerate(range(2018, 2022)):
-        # Calcule des moyennes
-        means = pheno_meteo[(pheno_meteo['phenological_main_event_code'].isin([1,2,3])) & (pheno_meteo.date.dt.year == year)][['Précipitations dans les 24 dernières heures','Température (°C)', 'rolling_avg_temp','phenological_main_event_code']].groupby('phenological_main_event_code').mean()
-    
-        # Ajout plot à chaqu année
-        means.plot(kind='bar', rot=0, alpha=0.7, label=year, ax=axes[i])
-    
-        # Labels
-        axes[i].set_xlabel('Phenological Main Event Code', fontsize = 25)
-        axes[i].set_ylabel('Mean Value', fontsize = 25)
-        axes[i].set_title(year, fontsize = 25)
-    
-    
-    # Ajout 5éme colonne
-    means = pheno_meteo_pred_train[(pheno_meteo_pred_train['phenological_main_event_code'].isin([1,2,3]))][['Précipitations dans les 24 dernières heures','Température (°C)', 'rolling_avg_temp','phenological_main_event_code']].groupby('phenological_main_event_code').mean()
-    means.plot(kind='bar', rot=0, alpha=0.7, label='Prediction', ax=axes[4])
-    axes[4].set_xlabel('Phenological Main Event Code', fontsize = 25)
-    axes[4].set_ylabel('Mean Value', fontsize = 25)
-    axes[4].set_title('2100', fontsize = 25)
-    
-    # Gérer les légendes
-    axes[0].legend(loc='upper left', bbox_to_anchor=(-1.8, 1), fontsize = 25)
-    for i in range(1,5):
-        axes[i].get_legend().remove()
-    
-    # titre
-    fig.suptitle("Observation des moyennes des variables températures et précipitations pour les premiers stades de croissance", fontsize = 30
-    )
-    st.pyplot();
-    
-    st.markdown("On remarque que la valeur de la moyenne des précipitations pendant le stade 1 pour l'année 2019 est beaucoup plus élevée que pour les autres années. C'est donc un facteur potentiellement favorable à une montaison longue et à un meilleur rendement. En ce qui concerne les prédictions pour 2100 les précipitations ne semblent pas si différentes que pour les années précédentes, c'est donc les températures plus élevées qui déterminent un rendement plus faible.")
-        
-        
