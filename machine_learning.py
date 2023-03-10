@@ -539,7 +539,7 @@ def machine_learning_function():
     st.markdown('**Selon le tableau de corrélation, la variable météorologique la plus corrélée au stade de développement du blé est la température**')
     # In[474]:
     st.markdown('Test ANOVA pour déterminer la corrélation entre une variable catégorielle et une variable numérique continue')
-    variable = st.selectbox('Variable catégorielle',['Température (°C)','rolling_avg_temp','Précipitations dans les 24 dernières heures','Humidité'])
+    variable = st.selectbox('Variable Numérique continue',['Température (°C)','rolling_avg_temp','Précipitations dans les 24 dernières heures','Humidité'])
     if variable == 'Température (°C)':
         st.image('Resources/ANOVA temp.png')
     # In[475]:
