@@ -9,6 +9,9 @@ from skimage import io
 import matplotlib.pyplot as plt
 
 def intro_function():
+    import platform
+
+
     img = io.imread('Resources/nature-friendly.png')  
     st.image(img, width=250)
 
@@ -20,6 +23,8 @@ def intro_function():
     st.markdown("J'ai récolté les données chiffrées des différentes grandes cultures françaises de 2018 à 2021 pour observer leurs évolutions.")
     st.markdown("**Analyse Phénologique** : ")
     st.markdown("L'analyse phénologique du blé est l'étude de son cycle de vie, c'est une denrée agriculture indispensable. Et c'est l'analyse de son comportement qui peut expliquer/prédire son rendement.")
+    st.markdown('**Analyse météorologique** : ')
+    st.markdown('Données météorologiques de 2018 à 2021')
     st.markdown("**Machine Learning** : ")
     st.markdown('Statistiques exploratoires et Prédictions')
     st.markdown('**Conclusion** : ')
